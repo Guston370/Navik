@@ -1,0 +1,125 @@
+/* Updated CSS Styles with Blue Shades and Animations */
+
+body {
+    background: linear-gradient(to bottom, #1e3a8a, #1f2937);
+    color: #ffffff;
+    animation: fadeIn 2s ease-in;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Section Title Styling */
+h2 {
+    color: #2563eb;
+    animation: slideIn 1.5s ease-out;
+}
+
+@keyframes slideIn {
+    from { transform: translateY(-50px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+/* Card Hover Animation */
+.card-hover {
+    background: #3b82f6;
+    transition: transform 0.3s ease-in-out;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.card-hover:hover {
+    transform: scale(1.05);
+}
+
+/* Button Animation */
+.btn-animated {
+    background-color: #2563eb;
+    transition: background-color 0.3s, transform 0.3s;
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.4);
+    animation: bounceIn 0.5s ease-out;
+}
+
+.btn-animated:hover {
+    background-color: #1d4ed8;
+    transform: translateY(-5px);
+}
+
+@keyframes bounceIn {
+    from {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* Section Background Enhancements */
+.about-section, .mentor-section, .call-to-action-section {
+    background-color: #1e40af;
+    border-radius: 10px;
+    padding: 20px;
+    color: white;
+    animation: fadeInUp 1s ease forwards;
+}
+
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fadeInUp {
+    animation: fadeInUp 1s ease-out forwards;
+}
+
+/* Footer Styling */
+footer {
+    background: linear-gradient(to bottom, #1e3a8a, #1f2937);
+    color: #94a3b8;
+    animation: fadeInFooter 1.5s ease forwards;
+}
+
+@keyframes fadeInFooter {
+    from { opacity: 0; transform: translateY(50px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Custom Animations for Elements */
+@keyframes pulseButton {
+    0% { box-shadow: 0 0 5px rgba(37, 99, 235, 0.5); }
+    50% { box-shadow: 0 0 15px rgba(37, 99, 235, 0.7); }
+    100% { box-shadow: 0 0 5px rgba(37, 99, 235, 0.5); }
+}
+
+.btn-animated:hover {
+    animation: pulseButton 1.2s infinite;
+}
+
+.card-hover {
+    animation: fadeUpCard 0.8s ease;
+}
+
+@keyframes fadeUpCard {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.mentor-photo {
+    transition: transform 0.3s ease-in-out;
+}
+
+.mentor-photo:hover {
+    transform: scale(1.1);
+}
+.navik-logo {
+    transition: transform 0.3s ease-in-out;
+}
+
+.navik-logo:hover {
+    transform: rotate(360deg);
+}
+
+

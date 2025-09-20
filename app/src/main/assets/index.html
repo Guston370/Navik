@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Navik - Career Guidance Platform</title>
+    <link rel="icon" type="image/png" href="Logo_Navik.png">
+
+    <!-- Tailwind CSS with fallback -->
+    <script src="https://cdn.tailwindcss.com" onerror="console.log('Tailwind CSS failed to load, using fallback styles')"></script>
+
+    <!-- FontAwesome Icons with fallback -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" onerror="console.log('FontAwesome failed to load')"/>
+
+    <!-- Google Fonts with fallback -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" onerror="console.log('Google Fonts failed to load')"/>
+
+    <!-- External CSS -->
+    <link rel="stylesheet" href="modern-theme.css"/>
+
+    <style>
+        body { 
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; 
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+            min-height: 100vh;
+        }
+        
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        .login-card {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            padding: 48px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .login-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 35px 70px rgba(0, 0, 0, 0.4);
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+        
+        .input-field {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+        
+        .input-field:focus {
+            outline: none;
+            border-color: rgba(79, 70, 229, 0.5);
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+            background: rgba(255, 255, 255, 0.15);
+        }
+        
+        .input-field::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+        
+        .login-btn {
+            background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            padding: 16px 32px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(79, 70, 229, 0.3);
+        }
+        
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(79, 70, 229, 0.4);
+        }
+        
+        .login-btn:active {
+            transform: translateY(0);
+        }
+        
+        .checkbox-container {
+            position: relative;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+        
+        .checkbox-container input[type="checkbox"] {
+            opacity: 0;
+            position: absolute;
+            cursor: pointer;
+        }
+        
+        .checkmark {
+            position: relative;
+            height: 20px;
+            width: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 4px;
+            margin-right: 12px;
+            transition: all 0.3s ease;
+        }
+        
+        .checkbox-container input:checked ~ .checkmark {
+            background: linear-gradient(135deg, #4f46e5, #7c3aed);
+            border-color: #4f46e5;
+        }
+        
+        .checkmark:after {
+            content: "";
+            position: absolute;
+            display: none;
+            left: 6px;
+            top: 2px;
+            width: 6px;
+            height: 10px;
+            border: solid white;
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
+        }
+        
+        .checkbox-container input:checked ~ .checkmark:after {
+            display: block;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .animate-fadeInUp {
+            animation: fadeInUp 0.6s ease forwards;
+        }
+        
+        .animate-delay-100 { animation-delay: 0.1s; }
+        .animate-delay-200 { animation-delay: 0.2s; }
+        .animate-delay-300 { animation-delay: 0.3s; }
+        .animate-delay-400 { animation-delay: 0.4s; }
+        
+        .floating-shapes {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -1;
+        }
+        
+        .shape {
+            position: absolute;
+            background: linear-gradient(135deg, rgba(79, 70, 229, 0.1), rgba(124, 58, 237, 0.1));
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        .shape:nth-child(1) {
+            width: 80px;
+            height: 80px;
+            top: 20%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+        
+        .shape:nth-child(2) {
+            width: 120px;
+            height: 120px;
+            top: 60%;
+            right: 10%;
+            animation-delay: 2s;
+        }
+        
+        .shape:nth-child(3) {
+            width: 60px;
+            height: 60px;
+            bottom: 20%;
+            left: 20%;
+            animation-delay: 4s;
+        }
+        
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-20px) rotate(180deg);
+            }
+        }
+        
+        .notification {
+            position: fixed;
+            bottom: 32px;
+            right: 32px;
+            background: linear-gradient(135deg, #ef4444, #dc2626);
+            color: white;
+            padding: 16px 24px;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 500;
+            box-shadow: 0 8px 25px rgba(239, 68, 68, 0.3);
+            transform: translateX(400px);
+            transition: all 0.3s ease;
+            z-index: 9999;
+        }
+        
+        .notification.success {
+            background: linear-gradient(135deg, #22c55e, #16a34a);
+            box-shadow: 0 8px 25px rgba(34, 197, 94, 0.3);
+        }
+        
+        .notification.show {
+            transform: translateX(0);
+        }
+        
+        .logo-glow {
+            filter: drop-shadow(0 0 20px rgba(79, 70, 229, 0.3));
+        }
+        
+        .link-hover {
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .link-hover::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -2px;
+            left: 0;
+            background: linear-gradient(90deg, #4f46e5, #7c3aed);
+            transition: all 0.3s ease;
+        }
+        
+        .link-hover:hover::after {
+            width: 100%;
+        }
+    </style>
+</head>
+<body class="min-h-screen text-white flex items-center justify-center p-4">
+    <!-- Floating Background Shapes -->
+    <div class="floating-shapes">
+        <div class="shape"></div>
+        <div class="shape"></div>
+        <div class="shape"></div>
+    </div>
+
+    <!-- Main Login Container -->
+    <div class="w-full max-w-md">
+        <!-- Logo and Title Section -->
+        <div class="text-center mb-8 animate-fadeInUp">
+            <div class="flex justify-center mb-6">
+                <img src="Logo_Navik.png" alt="Navik Logo" class="w-20 h-20 rounded-2xl shadow-2xl logo-glow">
+            </div>
+            <h1 class="text-4xl font-bold mb-2 bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+                NAVIK
+            </h1>
+            <p class="text-gray-300 text-lg">Career Guidance Platform</p>
+            <p class="text-gray-400 text-sm mt-2">Welcome back! Please sign in to continue</p>
+        </div>
+
+        <!-- Login Form Card -->
+        <div class="login-card animate-fadeInUp animate-delay-100">
+            <form id="login-form" class="space-y-6">
+                <!-- Username Field -->
+                <div class="space-y-2">
+                    <label class="block text-sm font-medium text-gray-300" for="username">
+                        <i class="fas fa-user mr-2"></i>Username
+                    </label>
+                    <input 
+                        type="text" 
+                        id="username" 
+                        name="username" 
+                        class="input-field w-full px-4 py-3 rounded-lg focus:outline-none" 
+                        placeholder="Enter your username"
+                        required
+                    />
+                </div>
+
+                <!-- Password Field -->
+                <div class="space-y-2">
+                    <label class="block text-sm font-medium text-gray-300" for="password">
+                        <i class="fas fa-lock mr-2"></i>Password
+                    </label>
+                    <div class="relative">
+                        <input 
+                            type="password" 
+                            id="password" 
+                            name="password" 
+                            class="input-field w-full px-4 py-3 pr-12 rounded-lg focus:outline-none" 
+                            placeholder="Enter your password"
+                            required
+                        />
+                        <button 
+                            type="button" 
+                            id="toggle-password" 
+                            class="absolute inset-y-0 right-0 flex items-center px-4 text-gray-400 hover:text-white transition-colors"
+                        >
+                            <i id="eye-icon" class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Remember Me & Forgot Password -->
+                <div class="flex items-center justify-between">
+                    <label class="checkbox-container text-sm text-gray-300">
+                        <input type="checkbox" id="remember" />
+                        <span class="checkmark"></span>
+                        Remember me
+                    </label>
+                    <a href="forgot_password.html" class="text-sm text-blue-400 hover:text-blue-300 link-hover">
+                        Forgot password?
+                    </a>
+                </div>
+
+                <!-- Login Button -->
+                <button type="submit" id="login-btn" class="login-btn w-full flex items-center justify-center">
+                    <i class="fas fa-sign-in-alt mr-2"></i>
+                    Sign In
+                </button>
+            </form>
+
+            <!-- Sign Up Link -->
+            <div class="text-center mt-8 pt-6 border-t border-white/10">
+                <p class="text-gray-400 text-sm">
+                    Don't have an account? 
+                    <a href="signup.html" class="text-blue-400 hover:text-blue-300 font-semibold link-hover">
+                        Create one now
+                    </a>
+                </p>
+            </div>
+        </div>
+
+        <!-- Features Preview -->
+        <div class="mt-8 grid grid-cols-3 gap-4 animate-fadeInUp animate-delay-200">
+            <div class="text-center">
+                <div class="w-12 h-12 bg-gradient-to-r from-blue-500 to-blue-600 rounded-xl flex items-center justify-center mx-auto mb-2">
+                    <i class="fas fa-clipboard-check text-white"></i>
+                </div>
+                <p class="text-xs text-gray-400">Aptitude Tests</p>
+            </div>
+            <div class="text-center">
+                <div class="w-12 h-12 bg-gradient-to-r from-green-500 to-green-600 rounded-xl flex items-center justify-center mx-auto mb-2">
+                    <i class="fas fa-chart-bar text-white"></i>
+                </div>
+                <p class="text-xs text-gray-400">Career Reports</p>
+            </div>
+            <div class="text-center">
+                <div class="w-12 h-12 bg-gradient-to-r from-purple-500 to-purple-600 rounded-xl flex items-center justify-center mx-auto mb-2">
+                    <i class="fas fa-users text-white"></i>
+                </div>
+                <p class="text-xs text-gray-400">Mentor Access</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification Popup -->
+    <div id="login-popup" class="notification"></div>
+
+    <!-- Authentication Script -->
+    <script src="auth.js"></script>
+
+    <script>
+        function showLoginPopup(message, isSuccess = false) {
+            const popup = document.getElementById('login-popup');
+            popup.textContent = message;
+            popup.className = `notification ${isSuccess ? 'success' : ''}`;
+            popup.classList.add('show');
+            
+            setTimeout(() => {
+                popup.classList.remove('show');
+            }, 3000);
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const passwordInput = document.getElementById('password');
+            const togglePassword = document.getElementById('toggle-password');
+            const eyeIcon = document.getElementById('eye-icon');
+
+            // Password toggle functionality
+            if (togglePassword && passwordInput) {
+                togglePassword.addEventListener('click', function () {
+                    const type = passwordInput.type === 'password' ? 'text' : 'password';
+                    passwordInput.type = type;
+                    if (eyeIcon) {
+                        eyeIcon.classList.toggle('fa-eye');
+                        eyeIcon.classList.toggle('fa-eye-slash');
+                    }
+                });
+            }
+
+            // Form submission
+            const form = document.getElementById('login-form');
+            if (!form) return;
+
+            const loginBtn = document.getElementById('login-btn');
+            if (loginBtn && !loginBtn.textContent.trim()) {
+                loginBtn.innerHTML = '<i class="fas fa-sign-in-alt mr-2"></i>Sign In';
+            }
+
+            form.addEventListener('submit', function (e) {
+                e.preventDefault();
+
+                const username = document.getElementById('username') ? document.getElementById('username').value.trim() : '';
+                const password = document.getElementById('password') ? document.getElementById('password').value.trim() : '';
+
+                // Simple validation - just check if fields are not empty
+                if (!username || !password) {
+                    showLoginPopup("Please enter both username and password.");
+                    return;
+                }
+
+                // Add loading state
+                loginBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Signing In...';
+                loginBtn.disabled = true;
+
+                // Use our JavaScript authentication
+                const result = auth.login(username, password);
+
+                if (result.success) {
+                    showLoginPopup("Login successful! Redirecting...", true);
+                    
+                    setTimeout(function () {
+                        window.location.href = "dashboard.html";
+                    }, 1000);
+                } else {
+                    showLoginPopup(result.message || "Login failed. Please try again.");
+                }
+
+                // Reset button state
+                loginBtn.innerHTML = '<i class="fas fa-sign-in-alt mr-2"></i>Sign In';
+                loginBtn.disabled = false;
+            });
+
+            // Add input focus effects
+            const inputs = document.querySelectorAll('.input-field');
+            inputs.forEach(input => {
+                input.addEventListener('focus', function() {
+                    this.parentElement.classList.add('focused');
+                });
+                
+                input.addEventListener('blur', function() {
+                    this.parentElement.classList.remove('focused');
+                });
+            });
+        });
+    </script>
+</body>
+</html>

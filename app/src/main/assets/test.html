@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Navik - Tests</title>
+    <link rel="icon" type="image/png" href="Logo_Navik.png" />
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+
+    <!-- External CSS -->
+    <link rel="stylesheet" href="modern-theme.css" />
+    
+    <style>
+        body { 
+            font-family: 'Inter', sans-serif; 
+            display: block !important;
+            justify-content: unset !important;
+            align-items: unset !important;
+        }
+        
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
+        }
+        
+        .nav-link {
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 50%;
+            background: linear-gradient(90deg, #4f46e5, #7c3aed);
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .nav-link.active::after {
+            width: 100%;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .animate-fadeInUp {
+            animation: fadeInUp 0.6s ease forwards;
+        }
+        
+        .animate-delay-100 { animation-delay: 0.1s; }
+        .animate-delay-200 { animation-delay: 0.2s; }
+        .animate-delay-300 { animation-delay: 0.3s; }
+        .animate-delay-400 { animation-delay: 0.4s; }
+        .animate-delay-500 { animation-delay: 0.5s; }
+        .animate-delay-600 { animation-delay: 0.6s; }
+        
+        .test-card {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 32px;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .test-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #4f46e5, #7c3aed, #ec4899);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .test-card:hover::before {
+            opacity: 1;
+        }
+        
+        .test-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+        
+        .test-button {
+            background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+            color: white;
+            border: none;
+            border-radius: 16px;
+            padding: 16px 32px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(79, 70, 229, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .test-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s ease;
+        }
+        
+        .test-button:hover::before {
+            left: 100%;
+        }
+        
+        .test-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 35px rgba(79, 70, 229, 0.4);
+        }
+        
+        .test-icon {
+            font-size: 2.5rem;
+            margin-bottom: 16px;
+            background: linear-gradient(135deg, #4f46e5, #7c3aed);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .hero-section {
+            background: linear-gradient(135deg, rgba(79, 70, 229, 0.1) 0%, rgba(124, 58, 237, 0.1) 100%);
+            border-radius: 24px;
+            padding: 48px;
+            margin-bottom: 48px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        /* Override any conflicting styles from external CSS */
+        * {
+            box-sizing: border-box;
+        }
+        
+        header {
+            position: sticky !important;
+            top: 0 !important;
+            z-index: 50 !important;
+            width: 100% !important;
+            display: block !important;
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 min-h-screen text-white">
+
+    <!-- Header -->
+    <header class="w-full glass-effect border-b border-white/10 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center space-x-4">
+                    <img src="Logo_Navik.png" alt="Navik Logo" class="w-12 h-12 rounded-lg shadow-lg">
+                    <div>
+                        <h1 class="text-xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">NAVIK</h1>
+                        <p class="text-xs text-gray-400">Career Guidance Platform</p>
+                    </div>
+                </div>
+                
+                <nav class="hidden md:flex space-x-8">
+                    <a class="nav-link text-gray-300 hover:text-white transition-colors" href="dashboard.html">
+                        <i class="fas fa-home mr-2"></i>Home
+                    </a>
+                    <a class="nav-link text-gray-300 hover:text-white transition-colors" href="Career_Exploration.html">
+                        <i class="fas fa-compass mr-2"></i>Explore
+                    </a>
+                    <a class="nav-link text-gray-300 hover:text-white transition-colors" href="mentor_community.html">
+                        <i class="fas fa-users mr-2"></i>Mentors
+                    </a>
+                    <a class="nav-link text-gray-300 hover:text-white transition-colors" href="report.html">
+                        <i class="fas fa-chart-bar mr-2"></i>Reports
+                    </a>
+                    <a class="nav-link active text-white font-semibold" href="test.html">
+                        <i class="fas fa-clipboard-check mr-2"></i>Tests
+                    </a>
+                </nav>
+
+                <div class="flex items-center space-x-4">
+                    <button onclick="window.location.href='Contact.HTML'" class="gradient-bg text-white px-6 py-2 rounded-full hover:shadow-lg transition-all duration-300 flex items-center">
+                        <i class="fas fa-envelope mr-2"></i>Contact
+                    </button>
+                    
+                    <!-- Profile Dropdown -->
+                    <div class="relative">
+                        <button class="flex items-center space-x-2 text-gray-300 hover:text-white transition-colors" id="logoDropdownBtn">
+                            <div class="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center">
+                                <i class="fas fa-user text-sm"></i>
+                            </div>
+                            <i class="fas fa-chevron-down text-xs"></i>
+                        </button>
+                        <div id="logoDropdownMenu" class="hidden absolute right-0 mt-2 w-48 glass-effect rounded-lg shadow-lg py-2 z-30">
+                            <a href="profile.html" class="block px-4 py-2 text-white hover:bg-white/20 transition-colors">
+                                <i class="fas fa-user mr-2"></i>Profile
+                            </a>
+                            <a href="#" id="logoutBtn" class="block px-4 py-2 text-white hover:bg-white/20 transition-colors">
+                                <i class="fas fa-sign-out-alt mr-2"></i>Logout
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main class="flex-grow px-4 py-12">
+        <div class="max-w-7xl mx-auto">
+            <!-- Hero Section -->
+            <div class="hero-section text-center animate-fadeInUp">
+                <h1 class="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
+                    Aptitude Tests
+                </h1>
+                <p class="text-xl md:text-2xl mb-8 max-w-4xl mx-auto text-gray-300 leading-relaxed">
+                    Discover your true potential with our comprehensive aptitude assessment suite. 
+                    Each test is scientifically designed to evaluate your strengths and guide your career path.
+                </p>
+                <div class="flex flex-wrap justify-center gap-4 text-sm text-gray-400">
+                    <span class="flex items-center"><i class="fas fa-clock mr-2"></i>15-20 min per test</span>
+                    <span class="flex items-center"><i class="fas fa-chart-line mr-2"></i>Detailed analysis</span>
+                    <span class="flex items-center"><i class="fas fa-graduation-cap mr-2"></i>Career guidance</span>
+                </div>
+            </div>
+
+            <!-- Test Cards Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Numerical Ability Test -->
+                <div class="test-card card-hover animate-fadeInUp animate-delay-100">
+                    <div class="text-center">
+                        <i class="fas fa-calculator test-icon"></i>
+                        <h3 class="text-xl font-bold mb-4 text-white">Numerical Ability</h3>
+                        <p class="text-gray-300 text-sm mb-6 leading-relaxed">
+                            Measures your skill with numbers, calculations, and basic math concepts. 
+                            Perfect for careers requiring analytical and quantitative thinking.
+                        </p>
+                        <a href="numericalability.html" class="block">
+                            <button class="test-button w-full">
+                                <i class="fas fa-play mr-2"></i>Start Test
+                    </button>
+                </a>
+                    </div>
+                </div>
+
+                <!-- Personality Test -->
+                <div class="test-card card-hover animate-fadeInUp animate-delay-200">
+                    <div class="text-center">
+                        <i class="fas fa-user-friends test-icon"></i>
+                        <h3 class="text-xl font-bold mb-4 text-white">Personality Assessment</h3>
+                        <p class="text-gray-300 text-sm mb-6 leading-relaxed">
+                            Discover your personality traits, strengths, and growth areas. 
+                            Essential for personal development and career alignment.
+                        </p>
+                        <a href="personality.html" class="block">
+                            <button class="test-button w-full">
+                                <i class="fas fa-play mr-2"></i>Start Test
+                            </button>
+                        </a>
+                    </div>
+            </div>
+
+                <!-- Abstract Reasoning Test -->
+                <div class="test-card card-hover animate-fadeInUp animate-delay-300">
+                    <div class="text-center">
+                        <i class="fas fa-brain test-icon"></i>
+                        <h3 class="text-xl font-bold mb-4 text-white">Abstract Reasoning</h3>
+                        <p class="text-gray-300 text-sm mb-6 leading-relaxed">
+                            Assesses pattern recognition and logical thinking abilities. 
+                            Critical for problem-solving and analytical roles.
+                        </p>
+                        <a href="abstract.html" class="block">
+                            <button class="test-button w-full">
+                                <i class="fas fa-play mr-2"></i>Start Test
+                    </button>
+                </a>
+                    </div>
+                </div>
+
+                <!-- Perceptual Ability Test -->
+                <div class="test-card card-hover animate-fadeInUp animate-delay-400">
+                    <div class="text-center">
+                        <i class="fas fa-eye test-icon"></i>
+                        <h3 class="text-xl font-bold mb-4 text-white">Perceptual Ability</h3>
+                        <p class="text-gray-300 text-sm mb-6 leading-relaxed">
+                            Evaluates attention to detail and visual comparison skills. 
+                            Ideal for technical, design, and quality assurance roles.
+                        </p>
+                        <a href="perceptual.html" class="block">
+                            <button class="test-button w-full">
+                                <i class="fas fa-play mr-2"></i>Start Test
+                            </button>
+                        </a>
+                    </div>
+            </div>
+
+                <!-- Verbal Ability Test -->
+                <div class="test-card card-hover animate-fadeInUp animate-delay-500">
+                    <div class="text-center">
+                        <i class="fas fa-language test-icon"></i>
+                        <h3 class="text-xl font-bold mb-4 text-white">Verbal Ability</h3>
+                        <p class="text-gray-300 text-sm mb-6 leading-relaxed">
+                            Tests language comprehension, grammar, and communication skills. 
+                            Essential for roles requiring strong verbal communication.
+                        </p>
+                        <a href="verbal.html" class="block">
+                            <button class="test-button w-full">
+                                <i class="fas fa-play mr-2"></i>Start Test
+                    </button>
+                </a>
+                    </div>
+                </div>
+
+                <!-- Spatial Ability Test -->
+                <div class="test-card card-hover animate-fadeInUp animate-delay-600">
+                    <div class="text-center">
+                        <i class="fas fa-cube test-icon"></i>
+                        <h3 class="text-xl font-bold mb-4 text-white">Spatial Ability</h3>
+                        <p class="text-gray-300 text-sm mb-6 leading-relaxed">
+                            Measures 3D visualization and spatial manipulation skills. 
+                            Perfect for engineering, architecture, and creative fields.
+                        </p>
+                        <a href="spatial.html" class="block">
+                            <button class="test-button w-full">
+                                <i class="fas fa-play mr-2"></i>Start Test
+                    </button>
+                </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Call to Action -->
+            <div class="text-center mt-16 animate-fadeInUp">
+                <div class="glass-effect rounded-2xl p-8 max-w-4xl mx-auto">
+                    <h3 class="text-2xl font-bold mb-4 text-white">Ready to Discover Your Potential?</h3>
+                    <p class="text-gray-300 mb-6">
+                        Take all tests to get a comprehensive analysis of your abilities and receive personalized career recommendations.
+                    </p>
+                    <a href="report.html" class="inline-block">
+                        <button class="test-button text-lg px-8 py-4">
+                            <i class="fas fa-chart-bar mr-2"></i>View All Results
+                    </button>
+                </a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="w-full py-10 bg-gradient-to-b from-gray-900 to-blue-900 text-center">
+        <p class="text-white text-sm mb-4">
+            2025 © Navik - Designed & Crafted <span class="text-red-500">❤️</span> by Navik Team
+        </p>
+        <div class="flex justify-center space-x-6">
+            <a class="text-white hover:text-blue-400" href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a class="text-white hover:text-blue-400" href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+            <a class="text-white hover:text-blue-400" href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+            <a class="text-white hover:text-blue-400" href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+        </div>
+    </footer>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const logoBtn = document.getElementById('logoDropdownBtn');
+        const dropdownMenu = document.getElementById('logoDropdownMenu');
+        const logoutBtn = document.getElementById('logoutBtn');
+
+        if (logoBtn && dropdownMenu) {
+            logoBtn.addEventListener('click', function (e) {
+                e.stopPropagation();
+                dropdownMenu.classList.toggle('hidden');
+            });
+
+            document.addEventListener('click', function () {
+                dropdownMenu.classList.add('hidden');
+            });
+
+            dropdownMenu.addEventListener('click', function (e) {
+                e.stopPropagation(); // Prevent closing when clicking inside the menu
+            });
+        }
+
+        if (logoutBtn) {
+            logoutBtn.addEventListener('click', function (e) {
+                e.preventDefault();
+                localStorage.clear();
+                window.location.href = "index.html";
+            });
+        }
+    });
+    </script>
+</body>
+</html>
+

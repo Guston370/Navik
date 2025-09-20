@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Navik - Career Guidance Platform</title>
+    <link rel="icon" type="image/png" href="Logo_Navik.png">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+
+    <!-- External CSS -->
+    <link rel="stylesheet" href="styles.css"/>
+
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+        
+        .stat-card {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .skill-bar {
+            background: linear-gradient(90deg, #4f46e5, #7c3aed);
+            border-radius: 10px;
+            height: 8px;
+            transition: width 0.8s ease;
+        }
+        
+        .nav-link {
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 50%;
+            background: linear-gradient(90deg, #4f46e5, #7c3aed);
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .nav-link.active::after {
+            width: 100%;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .animate-fadeInUp {
+            animation: fadeInUp 0.6s ease forwards;
+        }
+        
+        .animate-delay-100 { animation-delay: 0.1s; }
+        .animate-delay-200 { animation-delay: 0.2s; }
+        .animate-delay-300 { animation-delay: 0.3s; }
+        .animate-delay-400 { animation-delay: 0.4s; }
+        
+        .hero-gradient {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 min-h-screen text-white">
+
+    <!-- Header -->
+    <header class="w-full glass-effect border-b border-white/10 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center space-x-4">
+                    <img src="Logo_Navik.png" alt="Navik Logo" class="w-12 h-12 rounded-lg shadow-lg">
+                    <div>
+                        <h1 class="text-xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">NAVIK</h1>
+                        <p class="text-xs text-gray-400">Career Guidance Platform</p>
+                    </div>
+                </div>
+                
+                <nav class="hidden md:flex space-x-8">
+                    <a class="nav-link active text-white font-semibold" href="dashboard.html">
+                        <i class="fas fa-home mr-2"></i>Home
+                    </a>
+                    <a class="nav-link text-gray-300 hover:text-white transition-colors" href="Career_Exploration.html">
+                        <i class="fas fa-compass mr-2"></i>Explore
+                    </a>
+                    <a class="nav-link text-gray-300 hover:text-white transition-colors" href="mentor_community.html">
+                        <i class="fas fa-users mr-2"></i>Mentors
+                    </a>
+                    <a class="nav-link text-gray-300 hover:text-white transition-colors" href="report.html">
+                        <i class="fas fa-chart-bar mr-2"></i>Reports
+                    </a>
+                    <a class="nav-link text-gray-300 hover:text-white transition-colors" href="test.html">
+                        <i class="fas fa-clipboard-check mr-2"></i>Tests
+                    </a>
+                </nav>
+
+                <div class="flex items-center space-x-4">
+                    <button class="gradient-bg text-white px-6 py-2 rounded-full hover:shadow-lg transition-all duration-300 flex items-center">
+                        <i class="fas fa-envelope mr-2"></i>Contact
+                    </button>
+                    
+                    <!-- Profile Dropdown -->
+                    <div class="relative">
+                        <button class="flex items-center space-x-2 text-gray-300 hover:text-white transition-colors" id="logoDropdownBtn">
+                            <div class="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center">
+                                <i class="fas fa-user text-sm"></i>
+                            </div>
+                            <i class="fas fa-chevron-down text-xs"></i>
+                        </button>
+                        <div id="logoDropdownMenu" class="hidden absolute right-0 mt-2 w-48 glass-effect rounded-lg shadow-lg py-2 z-30">
+                            <a href="profile.html" class="block px-4 py-2 text-white hover:bg-white/20 transition-colors">
+                                <i class="fas fa-user mr-2"></i>Profile
+                            </a>
+                            <a href="#" id="logoutBtn" class="block px-4 py-2 text-white hover:bg-white/20 transition-colors">
+                                <i class="fas fa-sign-out-alt mr-2"></i>Logout
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-grow max-w-7xl mx-auto px-6 py-8">
+        <!-- Hero Section -->
+        <div class="text-center mb-16">
+            <h1 class="text-6xl md:text-7xl font-bold mb-6 animate-fadeInUp">
+                <span class="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">NAVIK</span>
+            </h1>
+            <h2 class="text-3xl md:text-4xl font-bold mb-6 text-gray-300 animate-fadeInUp animate-delay-100">
+                Navigate Your Career Path
+            </h2>
+            <p class="text-xl md:text-2xl mb-8 max-w-3xl mx-auto text-gray-400 animate-fadeInUp animate-delay-200">
+                Discover your potential, explore career options, and connect with mentors to build a successful future.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center animate-fadeInUp animate-delay-300">
+                <button onclick="window.location.href='Career_Exploration.html'" class="gradient-bg text-white py-4 px-8 rounded-full text-lg hover:shadow-lg transition-all duration-300 flex items-center justify-center">
+                    <i class="fas fa-compass mr-2"></i>Explore Careers
+                </button>
+                <button onclick="window.location.href='test.html'" class="glass-effect text-white py-4 px-8 rounded-full text-lg hover:bg-white/20 transition-all duration-300 flex items-center justify-center">
+                    <i class="fas fa-clipboard-check mr-2"></i>Take Assessment
+                </button>
+            </div>
+        </div>
+
+        <!-- Features Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+            <!-- Career Exploration -->
+            <div class="glass-effect rounded-2xl p-8 card-hover animate-fadeInUp animate-delay-100">
+                <div class="w-16 h-16 bg-gradient-to-r from-blue-500 to-blue-600 rounded-xl flex items-center justify-center mb-6">
+                    <i class="fas fa-compass text-white text-2xl"></i>
+                </div>
+                <h3 class="text-2xl font-bold mb-4">Career Exploration</h3>
+                <p class="text-gray-400 mb-6">Discover career paths that match your interests, skills, and personality through our comprehensive assessment tools.</p>
+                <button onclick="window.location.href='Career_Exploration.html'" class="w-full bg-blue-600 hover:bg-blue-500 text-white py-3 rounded-lg transition-all duration-300">
+                    Explore Now
+                </button>
+            </div>
+
+            <!-- Mentorship -->
+            <div class="glass-effect rounded-2xl p-8 card-hover animate-fadeInUp animate-delay-200">
+                <div class="w-16 h-16 bg-gradient-to-r from-purple-500 to-purple-600 rounded-xl flex items-center justify-center mb-6">
+                    <i class="fas fa-users text-white text-2xl"></i>
+                </div>
+                <h3 class="text-2xl font-bold mb-4">Mentor Community</h3>
+                <p class="text-gray-400 mb-6">Connect with industry professionals and experienced mentors who can guide you through your career journey.</p>
+                <button onclick="window.location.href='mentor_community.html'" class="w-full bg-purple-600 hover:bg-purple-500 text-white py-3 rounded-lg transition-all duration-300">
+                    Find Mentors
+                </button>
+            </div>
+
+            <!-- Assessments -->
+            <div class="glass-effect rounded-2xl p-8 card-hover animate-fadeInUp animate-delay-300">
+                <div class="w-16 h-16 bg-gradient-to-r from-green-500 to-green-600 rounded-xl flex items-center justify-center mb-6">
+                    <i class="fas fa-clipboard-check text-white text-2xl"></i>
+                </div>
+                <h3 class="text-2xl font-bold mb-4">Smart Assessments</h3>
+                <p class="text-gray-400 mb-6">Take our scientifically designed tests to understand your strengths, preferences, and career potential.</p>
+                <button onclick="window.location.href='test.html'" class="w-full bg-green-600 hover:bg-green-500 text-white py-3 rounded-lg transition-all duration-300">
+                    Start Assessment
+                </button>
+            </div>
+        </div>
+
+        <!-- About Section -->
+        <div class="glass-effect rounded-2xl p-12 mb-16 animate-fadeInUp">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div>
+                    <h2 class="text-4xl font-bold mb-6 bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+                        About Navik
+                    </h2>
+                    <p class="text-xl text-gray-300 mb-6">
+                        We provide students and professionals with a structured approach to career development through comprehensive assessments, personalized guidance, and expert mentorship.
+                    </p>
+                    <div class="space-y-4">
+                        <div class="flex items-center space-x-3">
+                            <i class="fas fa-check-circle text-green-400 text-xl"></i>
+                            <span class="text-gray-300">Personalized career recommendations</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <i class="fas fa-check-circle text-green-400 text-xl"></i>
+                            <span class="text-gray-300">Industry expert mentorship</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <i class="fas fa-check-circle text-green-400 text-xl"></i>
+                            <span class="text-gray-300">Comprehensive skill assessments</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center">
+                    <img src="roadmap.webp" alt="Career Path" class="mx-auto w-80 rounded-2xl shadow-2xl">
+                </div>
+            </div>
+        </div>
+
+        <!-- Mentor Showcase -->
+        <div class="glass-effect rounded-2xl p-12 mb-16 animate-fadeInUp">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-bold mb-4 bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
+                    Meet Our Mentors
+                </h2>
+                <p class="text-xl text-gray-300">Connect with industry professionals who can guide your career journey</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="text-center">
+                    <img src="bestmentor.jpg" alt="Mentor 1" class="w-32 h-32 rounded-full mx-auto mb-4 shadow-lg object-cover">
+                    <h3 class="text-xl font-semibold mb-2">Amar More</h3>
+                    <p class="text-gray-400 mb-4">Senior Software Engineer at Google</p>
+                    <button class="gradient-bg text-white px-6 py-2 rounded-full hover:shadow-lg transition-all duration-300">
+                        Connect
+                    </button>
+                </div>
+                <div class="text-center">
+                    <img src="download.jpg" alt="Mentor 2" class="w-32 h-32 rounded-full mx-auto mb-4 shadow-lg object-cover">
+                    <h3 class="text-xl font-semibold mb-2">Michael Chen</h3>
+                    <p class="text-gray-400 mb-4">Product Manager at Microsoft</p>
+                    <button class="gradient-bg text-white px-6 py-2 rounded-full hover:shadow-lg transition-all duration-300">
+                        Connect
+                    </button>
+                </div>
+                <div class="text-center">
+                    <img src="download1.jpg" alt="Mentor 3" class="w-32 h-32 rounded-full mx-auto mb-4 shadow-lg object-cover">
+                    <h3 class="text-xl font-semibold mb-2">Emily Rodriguez</h3>
+                    <p class="text-gray-400 mb-4">Data Scientist at Amazon</p>
+                    <button class="gradient-bg text-white px-6 py-2 rounded-full hover:shadow-lg transition-all duration-300">
+                        Connect
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Call to Action -->
+        <div class="text-center animate-fadeInUp">
+            <div class="glass-effect rounded-2xl p-12">
+                <h2 class="text-4xl font-bold mb-6 bg-gradient-to-r from-green-400 to-blue-400 bg-clip-text text-transparent">
+                    Ready to Start Your Journey?
+                </h2>
+                <p class="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
+                    Join thousands of professionals who have transformed their careers with Navik's guidance and mentorship.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <button onclick="window.location.href='test.html'" class="gradient-bg text-white py-4 px-8 rounded-full text-lg hover:shadow-lg transition-all duration-300 flex items-center justify-center">
+                        <i class="fas fa-rocket mr-2"></i>Get Started Now
+                    </button>
+                    <button onclick="window.location.href='Contact.HTML'" class="glass-effect text-white py-4 px-8 rounded-full text-lg hover:bg-white/20 transition-all duration-300 flex items-center justify-center">
+                        <i class="fas fa-envelope mr-2"></i>Contact Us
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="glass-effect border-t border-white/10 mt-16">
+        <div class="max-w-7xl mx-auto px-6 py-12">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <!-- Brand -->
+                <div class="md:col-span-2">
+                    <div class="flex items-center space-x-3 mb-4">
+                        <img src="Logo_Navik.png" alt="Navik Logo" class="w-12 h-12 rounded-lg">
+                        <div>
+                            <h3 class="text-xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">NAVIK</h3>
+                            <p class="text-sm text-gray-400">Career Guidance Platform</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-300 mb-6 max-w-md">
+                        Empowering individuals to discover their true potential and navigate their career journey with confidence and clarity.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center hover:bg-blue-500 transition-colors">
+                            <i class="fab fa-linkedin text-white"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-purple-600 rounded-lg flex items-center justify-center hover:bg-purple-500 transition-colors">
+                            <i class="fab fa-twitter text-white"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-pink-600 rounded-lg flex items-center justify-center hover:bg-pink-500 transition-colors">
+                            <i class="fab fa-instagram text-white"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-red-600 rounded-lg flex items-center justify-center hover:bg-red-500 transition-colors">
+                            <i class="fab fa-youtube text-white"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Quick Links -->
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Quick Links</h4>
+                    <ul class="space-y-3">
+                        <li><a href="dashboard.html" class="text-gray-300 hover:text-white transition-colors">Home</a></li>
+                        <li><a href="Career_Exploration.html" class="text-gray-300 hover:text-white transition-colors">Career Exploration</a></li>
+                        <li><a href="mentor_community.html" class="text-gray-300 hover:text-white transition-colors">Mentor Community</a></li>
+                        <li><a href="test.html" class="text-gray-300 hover:text-white transition-colors">Assessments</a></li>
+                    </ul>
+                </div>
+
+                <!-- Support -->
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Support</h4>
+                    <ul class="space-y-3">
+                        <li><a href="Contact.HTML" class="text-gray-300 hover:text-white transition-colors">Contact Us</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Help Center</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Privacy Policy</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Terms of Service</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="border-t border-white/10 mt-12 pt-8 text-center">
+                <p class="text-gray-400">
+                    © 2025 Navik. All rights reserved. Made with <span class="text-red-500">❤️</span> for career success.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Profile dropdown logic
+            const logoBtn = document.getElementById('logoDropdownBtn');
+            const dropdownMenu = document.getElementById('logoDropdownMenu');
+            const logoutBtn = document.getElementById('logoutBtn');
+
+            if (logoBtn && dropdownMenu) {
+                logoBtn.addEventListener('click', function (e) {
+                    e.stopPropagation();
+                    dropdownMenu.classList.toggle('hidden');
+                });
+
+                document.addEventListener('click', function () {
+                    dropdownMenu.classList.add('hidden');
+                });
+
+                dropdownMenu.addEventListener('click', function (e) {
+                    e.stopPropagation();
+                });
+            }
+
+            if (logoutBtn) {
+                logoutBtn.addEventListener('click', async function (e) {
+                    e.preventDefault();
+                    
+                    try {
+                        const response = await fetch('/api/auth/logout', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            credentials: 'include' // Include cookies for session
+                        });
+                        
+                        const result = await response.json();
+                        
+                        if (result.success) {
+                            localStorage.clear();
+                            window.location.href = "index.html";
+                        } else {
+                            // Even if logout fails on server, clear local data
+                            localStorage.clear();
+                            window.location.href = "index.html";
+                        }
+                    } catch (error) {
+                        console.error('Logout error:', error);
+                        // Even if logout fails on server, clear local data
+                        localStorage.clear();
+                        window.location.href = "index.html";
+                    }
+                });
+            }
+
+            // Add hover effects to cards
+            document.querySelectorAll('.card-hover').forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-5px)';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0)';
+                });
+            });
+
+            // Animate elements on scroll
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            });
+
+            document.querySelectorAll('.animate-fadeInUp').forEach(el => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(30px)';
+                observer.observe(el);
+            });
+        });
+    </script>
+
+</body>
+</html>
+``` 
+

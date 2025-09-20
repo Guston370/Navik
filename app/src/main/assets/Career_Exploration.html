@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Career Exploration - Navik</title>
+    <link rel="icon" type="image/png" href="Logo_Navik.png">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- External CSS -->
+    <link rel="stylesheet" href="modern-theme.css">
+
+    <style>
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+            min-height: 100vh;
+        }
+        
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+        
+        .career-card {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 24px;
+            transition: all 0.3s ease;
+        }
+        
+        .career-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+        
+        .nav-link {
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 50%;
+            background: linear-gradient(90deg, #4f46e5, #7c3aed);
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .nav-link.active::after {
+            width: 100%;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .animate-fadeInUp {
+            animation: fadeInUp 0.6s ease forwards;
+        }
+        
+        .animate-delay-100 { animation-delay: 0.1s; }
+        .animate-delay-200 { animation-delay: 0.2s; }
+        .animate-delay-300 { animation-delay: 0.3s; }
+        .animate-delay-400 { animation-delay: 0.4s; }
+        
+        .search-input {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            backdrop-filter: blur(10px);
+        }
+        
+        .search-input::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+        
+        .filter-btn {
+            background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            padding: 12px 24px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .filter-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(79, 70, 229, 0.4);
+        }
+        
+        .scope-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        
+        .scope-high { background: rgba(34, 197, 94, 0.2); color: #22c55e; }
+        .scope-medium { background: rgba(251, 191, 36, 0.2); color: #fbbf24; }
+        .scope-low { background: rgba(239, 68, 68, 0.2); color: #ef4444; }
+        
+        .growth-high { background: rgba(34, 197, 94, 0.2); color: #22c55e; }
+        .growth-moderate { background: rgba(251, 191, 36, 0.2); color: #fbbf24; }
+        .growth-slow { background: rgba(239, 68, 68, 0.2); color: #ef4444; }
+        .growth-stable { background: rgba(59, 130, 246, 0.2); color: #3b82f6; }
+    </style>
+</head>
+<body class="min-h-screen text-white">
+    <!-- Header -->
+    <header class="w-full glass-effect border-b border-white/10 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center space-x-4">
+                    <img src="Logo_Navik.png" alt="Navik Logo" class="w-12 h-12 rounded-lg shadow-lg">
+                    <div>
+                        <h1 class="text-xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">NAVIK</h1>
+                        <p class="text-xs text-gray-400">Career Guidance Platform</p>
+                    </div>
+                </div>
+                
+                <nav class="hidden md:flex space-x-8">
+                    <a class="nav-link text-gray-300 hover:text-white transition-colors" href="dashboard.html">
+                        <i class="fas fa-home mr-2"></i>Home
+                    </a>
+                    <a class="nav-link active text-white font-semibold" href="Career_Exploration.html">
+                        <i class="fas fa-compass mr-2"></i>Explore
+                    </a>
+                    <a class="nav-link text-gray-300 hover:text-white transition-colors" href="mentor_community.html">
+                        <i class="fas fa-users mr-2"></i>Mentors
+                    </a>
+                    <a class="nav-link text-gray-300 hover:text-white transition-colors" href="report.html">
+                        <i class="fas fa-chart-bar mr-2"></i>Reports
+                    </a>
+                    <a class="nav-link text-gray-300 hover:text-white transition-colors" href="test.html">
+                        <i class="fas fa-clipboard-check mr-2"></i>Tests
+                    </a>
+                </nav>
+
+                <div class="flex items-center space-x-4">
+                    <button onclick="window.location.href='Contact.HTML'" class="gradient-bg text-white px-6 py-2 rounded-full hover:shadow-lg transition-all duration-300 flex items-center">
+                        <i class="fas fa-envelope mr-2"></i>Contact
+                    </button>
+                    
+                    <!-- Profile Dropdown -->
+                    <div class="relative">
+                        <button class="flex items-center space-x-2 text-gray-300 hover:text-white transition-colors" id="logoDropdownBtn">
+                            <div class="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center">
+                                <i class="fas fa-user text-sm"></i>
+                            </div>
+                            <i class="fas fa-chevron-down text-xs"></i>
+                        </button>
+                        <div id="logoDropdownMenu" class="hidden absolute right-0 mt-2 w-48 glass-effect rounded-lg shadow-lg py-2 z-30">
+                            <a href="profile.html" class="block px-4 py-2 text-white hover:bg-white/20 transition-colors">
+                                <i class="fas fa-user mr-2"></i>Profile
+                            </a>
+                            <a href="#" id="logoutBtn" class="block px-4 py-2 text-white hover:bg-white/20 transition-colors">
+                                <i class="fas fa-sign-out-alt mr-2"></i>Logout
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-6 py-8">
+        <!-- Hero Section -->
+        <div class="text-center mb-12 animate-fadeInUp">
+            <h1 class="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+                Career Exploration
+            </h1>
+            <p class="text-xl text-gray-300 mb-8 max-w-3xl mx-auto">
+                Discover diverse career paths, explore opportunities, and find the perfect match for your skills and interests.
+            </p>
+        </div>
+
+        <!-- Search and Filter Section -->
+        <div class="glass-effect rounded-2xl p-8 mb-8 animate-fadeInUp animate-delay-100">
+            <div class="flex flex-col md:flex-row gap-4 items-center justify-center">
+                <div class="flex-1 max-w-md">
+                    <input type="text" id="search" class="search-input w-full px-4 py-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Search careers...">
+                </div>
+                <button onclick="filterCareers()" class="filter-btn flex items-center">
+                    <i class="fas fa-search mr-2"></i>Search
+                </button>
+                <select id="sort" class="search-input px-4 py-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" onchange="sortCareers()">
+                    <option value="">Sort By</option>
+                    <option value="salary">Salary (High to Low)</option>
+                    <option value="scope">Scope (High to Low)</option>
+                    <option value="growth">Growth Rate</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Career Cards Grid -->
+        <div id="careers" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Career Cards will be injected by JavaScript -->
+        </div>
+
+        <!-- Call to Action -->
+        <div class="text-center mt-12 animate-fadeInUp">
+            <div class="glass-effect rounded-2xl p-8">
+                <h3 class="text-2xl font-bold mb-4 text-white">Ready to Find Your Perfect Career?</h3>
+                <p class="text-gray-300 mb-6">
+                    Take our comprehensive aptitude tests to get personalized career recommendations based on your strengths and interests.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <a href="test.html" class="filter-btn inline-flex items-center justify-center">
+                        <i class="fas fa-clipboard-check mr-2"></i>Take Aptitude Tests
+                    </a>
+                    <a href="report.html" class="filter-btn inline-flex items-center justify-center">
+                        <i class="fas fa-chart-bar mr-2"></i>View My Results
+                    </a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="w-full py-10 bg-gradient-to-b from-gray-900 to-blue-900 text-center">
+        <p class="text-white text-sm mb-4">
+            2025 © Navik - Designed & Crafted <span class="text-red-500">❤️</span> by Navik Team
+        </p>
+        <div class="flex justify-center space-x-6">
+            <a class="text-white hover:text-blue-400" href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a class="text-white hover:text-blue-400" href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+            <a class="text-white hover:text-blue-400" href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+            <a class="text-white hover:text-blue-400" href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+        </div>
+    </footer>
+
+    <!-- JavaScript for Dynamic Career List -->
+    <script>
+        const careers = [
+            { 
+                name: "Data Scientist", 
+                skills: "Python, Machine Learning, Statistics", 
+                salary: 100000, 
+                scope: 5, 
+                education: "Bachelor's in Computer Science", 
+                growth: "Fast", 
+                environment: "Office, Remote",
+                icon: "fas fa-chart-line",
+                color: "from-blue-500 to-blue-600"
+            },
+            { 
+                name: "Doctor", 
+                skills: "Diagnosis, Surgery, Patient Care", 
+                salary: 150000, 
+                scope: 6, 
+                education: "Medical Degree", 
+                growth: "Stable", 
+                environment: "Hospital, Clinic",
+                icon: "fas fa-user-md",
+                color: "from-red-500 to-red-600"
+            },
+            { 
+                name: "Software Engineer", 
+                skills: "Programming, Development, Problem Solving", 
+                salary: 110000, 
+                scope: 6, 
+                education: "Computer Science Degree", 
+                growth: "Fast", 
+                environment: "Office, Remote",
+                icon: "fas fa-code",
+                color: "from-green-500 to-green-600"
+            },
+            { 
+                name: "Lawyer", 
+                skills: "Legal Research, Advocacy, Analysis", 
+                salary: 130000, 
+                scope: 5, 
+                education: "Law Degree", 
+                growth: "Stable", 
+                environment: "Courtroom, Office",
+                icon: "fas fa-gavel",
+                color: "from-purple-500 to-purple-600"
+            },
+            { 
+                name: "Financial Analyst", 
+                skills: "Investment Analysis, Excel, Economics", 
+                salary: 85000, 
+                scope: 4, 
+                education: "Bachelor's in Finance", 
+                growth: "Moderate", 
+                environment: "Office",
+                icon: "fas fa-chart-pie",
+                color: "from-yellow-500 to-yellow-600"
+            },
+            { 
+                name: "Mechanical Engineer", 
+                skills: "CAD, Thermodynamics, Design", 
+                salary: 90000, 
+                scope: 4, 
+                education: "Engineering Degree", 
+                growth: "Moderate", 
+                environment: "Office, Field",
+                icon: "fas fa-cogs",
+                color: "from-indigo-500 to-indigo-600"
+            },
+            { 
+                name: "Nurse", 
+                skills: "Patient Care, Medical Assistance, Empathy", 
+                salary: 70000, 
+                scope: 6, 
+                education: "Nursing Degree", 
+                growth: "Fast", 
+                environment: "Hospital, Clinic",
+                icon: "fas fa-heartbeat",
+                color: "from-pink-500 to-pink-600"
+            },
+            { 
+                name: "Architect", 
+                skills: "Design, AutoCAD, Creativity", 
+                salary: 95000, 
+                scope: 4, 
+                education: "Architecture Degree", 
+                growth: "Moderate", 
+                environment: "Office, Site",
+                icon: "fas fa-drafting-compass",
+                color: "from-orange-500 to-orange-600"
+            },
+            { 
+                name: "Psychologist", 
+                skills: "Counseling, Therapy, Analysis", 
+                salary: 75000, 
+                scope: 5, 
+                education: "Psychology Degree", 
+                growth: "Stable", 
+                environment: "Clinic, Office",
+                icon: "fas fa-brain",
+                color: "from-teal-500 to-teal-600"
+            },
+            { 
+                name: "Journalist", 
+                skills: "Writing, Investigative Research, Communication", 
+                salary: 60000, 
+                scope: 3, 
+                education: "Journalism Degree", 
+                growth: "Slow", 
+                environment: "Newsroom, Remote",
+                icon: "fas fa-newspaper",
+                color: "from-gray-500 to-gray-600"
+            },
+            { 
+                name: "Chef", 
+                skills: "Culinary Arts, Food Safety, Creativity", 
+                salary: 60000, 
+                scope: 3, 
+                education: "Culinary School", 
+                growth: "Moderate", 
+                environment: "Restaurant, Hotel",
+                icon: "fas fa-utensils",
+                color: "from-amber-500 to-amber-600"
+            },
+            { 
+                name: "Entrepreneur", 
+                skills: "Business Management, Leadership, Innovation", 
+                salary: 120000, 
+                scope: 5, 
+                education: "Varied", 
+                growth: "High", 
+                environment: "Flexible",
+                icon: "fas fa-rocket",
+                color: "from-cyan-500 to-cyan-600"
+            }
+        ];
+
+        function getScopeClass(scope) {
+            if (scope >= 5) return 'scope-high';
+            if (scope >= 4) return 'scope-medium';
+            return 'scope-low';
+        }
+
+        function getGrowthClass(growth) {
+            switch(growth.toLowerCase()) {
+                case 'fast': return 'growth-high';
+                case 'high': return 'growth-high';
+                case 'moderate': return 'growth-moderate';
+                case 'stable': return 'growth-stable';
+                case 'slow': return 'growth-slow';
+                default: return 'growth-moderate';
+            }
+        }
+
+        function displayCareers(careerList) {
+            const container = document.getElementById('careers');
+            container.innerHTML = "";
+            careerList.forEach((career, index) => {
+                container.innerHTML += `
+                    <div class="career-card card-hover animate-fadeInUp animate-delay-${(index % 4) * 100 + 100}">
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="w-12 h-12 bg-gradient-to-r ${career.color} rounded-xl flex items-center justify-center">
+                                <i class="${career.icon} text-white text-xl"></i>
+                            </div>
+                            <span class="text-2xl font-bold text-blue-400">₹${career.salary.toLocaleString()}</span>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-3 text-white">${career.name}</h3>
+                        <div class="space-y-2 mb-4">
+                            <p class="text-gray-300 text-sm"><i class="fas fa-tools mr-2 text-blue-400"></i><strong>Skills:</strong> ${career.skills}</p>
+                            <p class="text-gray-300 text-sm"><i class="fas fa-graduation-cap mr-2 text-green-400"></i><strong>Education:</strong> ${career.education}</p>
+                            <p class="text-gray-300 text-sm"><i class="fas fa-building mr-2 text-purple-400"></i><strong>Environment:</strong> ${career.environment}</p>
+                        </div>
+                        <div class="flex justify-between items-center mb-4">
+                            <div>
+                                <span class="scope-badge ${getScopeClass(career.scope)}">Scope: ${career.scope}/6</span>
+                            </div>
+                            <div>
+                                <span class="scope-badge ${getGrowthClass(career.growth)}">${career.growth} Growth</span>
+                            </div>
+                        </div>
+                        <button class="w-full bg-gradient-to-r ${career.color} text-white py-2 px-4 rounded-lg hover:shadow-lg transition-all duration-300">
+                            <i class="fas fa-info-circle mr-2"></i>Learn More
+                        </button>
+                    </div>
+                `;
+            });
+        }
+
+        function filterCareers() {
+            const searchTerm = document.getElementById('search').value.toLowerCase();
+            const filteredCareers = careers.filter(career => 
+                career.name.toLowerCase().includes(searchTerm) ||
+                career.skills.toLowerCase().includes(searchTerm) ||
+                career.education.toLowerCase().includes(searchTerm)
+            );
+            displayCareers(filteredCareers);
+        }
+
+        function sortCareers() {
+            const sortBy = document.getElementById('sort').value;
+            let sortedCareers = [...careers];
+            if (sortBy === "salary") {
+                sortedCareers.sort((a, b) => b.salary - a.salary);
+            } else if (sortBy === "scope") {
+                sortedCareers.sort((a, b) => b.scope - a.scope);
+            } else if (sortBy === "growth") {
+                const growthOrder = { 'High': 4, 'Fast': 3, 'Stable': 2, 'Moderate': 1, 'Slow': 0 };
+                sortedCareers.sort((a, b) => growthOrder[b.growth] - growthOrder[a.growth]);
+            }
+            displayCareers(sortedCareers);
+        }
+
+        // Initialize with all careers
+        window.onload = () => displayCareers(careers);
+
+        // Add search functionality on input
+        document.getElementById('search').addEventListener('input', filterCareers);
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const logoBtn = document.getElementById('logoDropdownBtn');
+            const dropdownMenu = document.getElementById('logoDropdownMenu');
+            const logoutBtn = document.getElementById('logoutBtn');
+
+            if (logoBtn && dropdownMenu) {
+                logoBtn.addEventListener('click', function (e) {
+                    e.stopPropagation();
+                    dropdownMenu.classList.toggle('hidden');
+                });
+
+                document.addEventListener('click', function () {
+                    dropdownMenu.classList.add('hidden');
+                });
+
+                dropdownMenu.addEventListener('click', function (e) {
+                    e.stopPropagation();
+                });
+            }
+
+            if (logoutBtn) {
+                logoutBtn.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    localStorage.clear();
+                    window.location.href = "index.html";
+                });
+            }
+        });
+    </script>
+</body>
+</html>

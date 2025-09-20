@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Contact Us - Navik</title>
+    <link rel="icon" type="image/png" href="Logo_Navik.png">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+
+    <!-- External CSS -->
+    <link rel="stylesheet" href="styles.css"/>
+    <link rel="stylesheet" href="modern-theme.css"/>
+    
+    <style>
+        button:hover {
+            background-color: #2563eb;
+            transition: background-color 0.3s ease;
+        }
+        
+        .popup {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: #4caf50;
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            display: none;
+            z-index: 1000;
+        }
+    </style>
+    
+    <script>
+        function handleSubmit(event) {
+            event.preventDefault();
+            
+            const popup = document.getElementById("popup-notification");
+            popup.style.display = "block";
+            
+            setTimeout(() => {
+                window.location.href = "dashboard.html";
+            }, 500);
+        }
+    </script>
+</head>
+<body class="bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 min-h-screen text-white">
+
+    <!-- Header -->
+    <header class="w-full glass-effect border-b border-white/10 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center space-x-4">
+                    <img src="Logo_Navik.png" alt="Navik Logo" class="w-12 h-12 rounded-lg shadow-lg">
+                    <div>
+                        <h1 class="text-xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">NAVIK</h1>
+                        <p class="text-xs text-gray-400">Career Guidance Platform</p>
+                    </div>
+                </div>
+                
+                <nav class="hidden md:flex space-x-8">
+                    <a class="nav-link text-gray-300 hover:text-white transition-colors" href="dashboard.html">
+                        <i class="fas fa-home mr-2"></i>Home
+                    </a>
+                    <a class="nav-link text-gray-300 hover:text-white transition-colors" href="Career_Exploration.html">
+                        <i class="fas fa-compass mr-2"></i>Explore
+                    </a>
+                    <a class="nav-link text-gray-300 hover:text-white transition-colors" href="mentor_community.html">
+                        <i class="fas fa-users mr-2"></i>Mentors
+                    </a>
+                    <a class="nav-link text-gray-300 hover:text-white transition-colors" href="report.html">
+                        <i class="fas fa-chart-bar mr-2"></i>Reports
+                    </a>
+                    <a class="nav-link text-gray-300 hover:text-white transition-colors" href="test.html">
+                        <i class="fas fa-clipboard-check mr-2"></i>Tests
+                    </a>
+                </nav>
+
+                <div class="flex items-center space-x-4">
+                    <button class="gradient-bg text-white px-6 py-2 rounded-full hover:shadow-lg transition-all duration-300 flex items-center">
+                        <i class="fas fa-envelope mr-2"></i>Contact
+                    </button>
+                    
+                    <!-- Profile Dropdown -->
+                    <div class="relative">
+                        <button class="flex items-center space-x-2 text-gray-300 hover:text-white transition-colors" id="logoDropdownBtn">
+                            <div class="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center">
+                                <i class="fas fa-user text-sm"></i>
+                            </div>
+                            <i class="fas fa-chevron-down text-xs"></i>
+                        </button>
+                        <div id="logoDropdownMenu" class="hidden absolute right-0 mt-2 w-48 glass-effect rounded-lg shadow-lg py-2 z-30">
+                            <a href="profile.html" class="block px-4 py-2 text-white hover:bg-white/20 transition-colors">
+                                <i class="fas fa-user mr-2"></i>Profile
+                            </a>
+                            <a href="#" id="logoutBtn" class="block px-4 py-2 text-white hover:bg-white/20 transition-colors">
+                                <i class="fas fa-sign-out-alt mr-2"></i>Logout
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-grow flex flex-col items-center justify-center text-center px-4">
+        <h1 class="text-5xl font-bold text-blue-400 mb-6">Contact Us</h1>
+        <p class="text-lg text-white mb-6 max-w-2xl">
+            Have questions or need support? Feel free to reach out to us using the form below.
+        </p>
+
+        <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-lg">
+            <form onsubmit="handleSubmit(event)">
+                <div class="mb-4">
+                    <label class="block text-gray-700 font-bold mb-2">Name</label>
+                    <input type="text" name="name" class="w-full px-4 py-2 border rounded-lg text-black focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Your Name" required>
+                </div>
+                
+                <div class="mb-4">
+                    <label class="block text-gray-700 font-bold mb-2">Email</label>
+                    <input type="email" name="email" class="w-full px-4 py-2 border rounded-lg text-black focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Your Email" required>
+                </div>
+
+                <div class="mb-4">
+                    <label class="block text-gray-700 font-bold mb-2">Subject</label>
+                    <input type="text" name="subject" class="w-full px-4 py-2 border rounded-lg text-black focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Subject" required>
+                </div>
+
+                <div class="mb-4">
+                    <label class="block text-gray-700 font-bold mb-2">Message</label>
+                    <textarea name="message" rows="4" class="w-full px-4 py-2 border rounded-lg text-black focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Your Message" required></textarea>
+                </div>
+
+                <button type="submit" class="bg-blue-600 text-white py-2 px-6 rounded-lg text-lg">
+                    Send Message
+                </button>
+            </form>
+        </div>
+    </main>
+
+    <div id="popup-notification" class="popup">Your message has been sent successfully!</div>
+
+    <footer class="w-full py-10 bg-gradient-to-b from-gray-900 to-blue-900">
+        <div class="container mx-auto px-4">
+            <div class="text-center text-white">
+                <p>2025 © Navik - Designed & Crafted <span class="text-red-500">❤️</span> by Navik Team</p>
+                <a class="hover:underline text-blue-400" href="#">Terms & Conditions</a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

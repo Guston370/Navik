@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Mentor Community - Navik</title>
+    <link rel="icon" type="image/png" href="Logo_Navik.png">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+
+    <!-- External CSS -->
+    <link rel="stylesheet" href="modern-theme.css"/>
+
+    <style>
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+            min-height: 100vh;
+        }
+        
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+        
+        .mentor-card {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 32px;
+            transition: all 0.3s ease;
+        }
+        
+        .mentor-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+        
+        .nav-link {
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 50%;
+            background: linear-gradient(90deg, #4f46e5, #7c3aed);
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .nav-link.active::after {
+            width: 100%;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .animate-fadeInUp {
+            animation: fadeInUp 0.6s ease forwards;
+        }
+        
+        .animate-delay-100 { animation-delay: 0.1s; }
+        .animate-delay-200 { animation-delay: 0.2s; }
+        .animate-delay-300 { animation-delay: 0.3s; }
+        .animate-delay-400 { animation-delay: 0.4s; }
+        .animate-delay-500 { animation-delay: 0.5s; }
+        
+        .connect-btn {
+            background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            padding: 12px 24px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(79, 70, 229, 0.3);
+        }
+        
+        .connect-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(79, 70, 229, 0.4);
+        }
+        
+        .feature-card {
+            background: linear-gradient(135deg, rgba(79, 70, 229, 0.1) 0%, rgba(124, 58, 237, 0.1) 100%);
+            border: 1px solid rgba(79, 70, 229, 0.2);
+            border-radius: 16px;
+            padding: 24px;
+            transition: all 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(79, 70, 229, 0.2);
+        }
+    </style>
+</head>
+<body class="min-h-screen text-white">
+    <!-- Header -->
+    <header class="w-full glass-effect border-b border-white/10 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center space-x-4">
+                    <img src="Logo_Navik.png" alt="Navik Logo" class="w-12 h-12 rounded-lg shadow-lg">
+                    <div>
+                        <h1 class="text-xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">NAVIK</h1>
+                        <p class="text-xs text-gray-400">Career Guidance Platform</p>
+                    </div>
+                </div>
+                
+                <nav class="hidden md:flex space-x-8">
+                    <a class="nav-link text-gray-300 hover:text-white transition-colors" href="dashboard.html">
+                        <i class="fas fa-home mr-2"></i>Home
+                    </a>
+                    <a class="nav-link text-gray-300 hover:text-white transition-colors" href="Career_Exploration.html">
+                        <i class="fas fa-compass mr-2"></i>Explore
+                    </a>
+                    <a class="nav-link active text-white font-semibold" href="mentor_community.html">
+                        <i class="fas fa-users mr-2"></i>Mentors
+                    </a>
+                    <a class="nav-link text-gray-300 hover:text-white transition-colors" href="report.html">
+                        <i class="fas fa-chart-bar mr-2"></i>Reports
+                    </a>
+                    <a class="nav-link text-gray-300 hover:text-white transition-colors" href="test.html">
+                        <i class="fas fa-clipboard-check mr-2"></i>Tests
+                    </a>
+                </nav>
+
+                <div class="flex items-center space-x-4">
+                    <button onclick="window.location.href='Contact.HTML'" class="gradient-bg text-white px-6 py-2 rounded-full hover:shadow-lg transition-all duration-300 flex items-center">
+                        <i class="fas fa-envelope mr-2"></i>Contact
+                    </button>
+                    
+                    <!-- Profile Dropdown -->
+                    <div class="relative">
+                        <button class="flex items-center space-x-2 text-gray-300 hover:text-white transition-colors" id="logoDropdownBtn">
+                            <div class="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center">
+                                <i class="fas fa-user text-sm"></i>
+                            </div>
+                            <i class="fas fa-chevron-down text-xs"></i>
+                        </button>
+                        <div id="logoDropdownMenu" class="hidden absolute right-0 mt-2 w-48 glass-effect rounded-lg shadow-lg py-2 z-30">
+                            <a href="profile.html" class="block px-4 py-2 text-white hover:bg-white/20 transition-colors">
+                                <i class="fas fa-user mr-2"></i>Profile
+                            </a>
+                            <a href="#" id="logoutBtn" class="block px-4 py-2 text-white hover:bg-white/20 transition-colors">
+                                <i class="fas fa-sign-out-alt mr-2"></i>Logout
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-6 py-8">
+        <!-- Hero Section -->
+        <div class="text-center mb-12 animate-fadeInUp">
+            <h1 class="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+                Mentor Community
+            </h1>
+            <p class="text-xl text-gray-300 mb-8 max-w-3xl mx-auto">
+                Connect with industry experts and experienced professionals who can guide you on your career journey.
+            </p>
+        </div>
+
+        <!-- Why Mentors Matter Section -->
+        <div class="glass-effect rounded-2xl p-8 mb-12 animate-fadeInUp animate-delay-100">
+            <div class="text-center mb-8">
+                <h2 class="text-3xl font-bold mb-4 text-white">Why Mentors Matter?</h2>
+                <p class="text-lg text-gray-300 max-w-4xl mx-auto">
+                    As a student in 10th or 12th grade, choosing the right career path can feel overwhelming. 
+                    Our expert mentors provide personalized guidance to help you make informed decisions about your future.
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="feature-card animate-fadeInUp animate-delay-200">
+                    <div class="w-12 h-12 bg-gradient-to-r from-blue-500 to-blue-600 rounded-xl flex items-center justify-center mb-4">
+                        <i class="fas fa-graduation-cap text-white text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3 text-white">Stream Selection</h3>
+                    <p class="text-gray-300">Get expert advice on which subjects to choose based on your strengths and interests.</p>
+                </div>
+                
+                <div class="feature-card animate-fadeInUp animate-delay-300">
+                    <div class="w-12 h-12 bg-gradient-to-r from-green-500 to-green-600 rounded-xl flex items-center justify-center mb-4">
+                        <i class="fas fa-briefcase text-white text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3 text-white">Career Insights</h3>
+                    <p class="text-gray-300">Learn about various career paths, job roles, and opportunities in different industries.</p>
+                </div>
+                
+                <div class="feature-card animate-fadeInUp animate-delay-400">
+                    <div class="w-12 h-12 bg-gradient-to-r from-purple-500 to-purple-600 rounded-xl flex items-center justify-center mb-4">
+                        <i class="fas fa-university text-white text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3 text-white">College Guidance</h3>
+                    <p class="text-gray-300">Understand the best universities, courses, and certifications that align with your goals.</p>
+                </div>
+                
+                <div class="feature-card animate-fadeInUp animate-delay-500">
+                    <div class="w-12 h-12 bg-gradient-to-r from-orange-500 to-orange-600 rounded-xl flex items-center justify-center mb-4">
+                        <i class="fas fa-user-graduate text-white text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3 text-white">Personal Development</h3>
+                    <p class="text-gray-300">Gain confidence, leadership skills, and decision-making abilities.</p>
+                </div>
+                
+                <div class="feature-card animate-fadeInUp animate-delay-100">
+                    <div class="w-12 h-12 bg-gradient-to-r from-red-500 to-red-600 rounded-xl flex items-center justify-center mb-4">
+                        <i class="fas fa-network-wired text-white text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3 text-white">Networking</h3>
+                    <p class="text-gray-300">Connect with professionals and build a strong network for future career growth.</p>
+                </div>
+                
+                <div class="feature-card animate-fadeInUp animate-delay-200">
+                    <div class="w-12 h-12 bg-gradient-to-r from-indigo-500 to-indigo-600 rounded-xl flex items-center justify-center mb-4">
+                        <i class="fas fa-lightbulb text-white text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3 text-white">Industry Knowledge</h3>
+                    <p class="text-gray-300">Get real-world insights and practical advice from experienced professionals.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Featured Mentors Section -->
+        <div class="mb-12 animate-fadeInUp">
+            <h2 class="text-3xl font-bold text-center mb-8 text-white">Meet Our Expert Mentors</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="mentor-card card-hover animate-fadeInUp animate-delay-100">
+                    <div class="text-center">
+                        <div class="w-24 h-24 bg-gradient-to-r from-blue-500 to-blue-600 rounded-full flex items-center justify-center mx-auto mb-6">
+                            <img src="Mentor.png" alt="Aditya" class="w-20 h-20 rounded-full object-cover">
+                        </div>
+                        <h3 class="text-2xl font-bold mb-2 text-white">Aditya</h3>
+                        <p class="text-blue-400 font-semibold mb-3">Software Engineer</p>
+                        <p class="text-gray-300 text-sm mb-6">
+                            Experienced software engineer with 5+ years in full-stack development. 
+                            Passionate about helping students understand the tech industry.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-6">
+                            <span class="px-3 py-1 bg-blue-500/20 text-blue-300 rounded-full text-xs">JavaScript</span>
+                            <span class="px-3 py-1 bg-blue-500/20 text-blue-300 rounded-full text-xs">React</span>
+                            <span class="px-3 py-1 bg-blue-500/20 text-blue-300 rounded-full text-xs">Node.js</span>
+                        </div>
+                        <button class="connect-btn w-full">
+                            <i class="fas fa-handshake mr-2"></i>Connect Now
+                        </button>
+                    </div>
+                </div>
+
+                <div class="mentor-card card-hover animate-fadeInUp animate-delay-200">
+                    <div class="text-center">
+                        <div class="w-24 h-24 bg-gradient-to-r from-green-500 to-green-600 rounded-full flex items-center justify-center mx-auto mb-6">
+                            <img src="Mentor.png" alt="Kartik" class="w-20 h-20 rounded-full object-cover">
+                        </div>
+                        <h3 class="text-2xl font-bold mb-2 text-white">Kartik</h3>
+                        <p class="text-green-400 font-semibold mb-3">Data Scientist</p>
+                        <p class="text-gray-300 text-sm mb-6">
+                            Data science expert with expertise in machine learning and AI. 
+                            Helps students explore careers in data analytics and research.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-6">
+                            <span class="px-3 py-1 bg-green-500/20 text-green-300 rounded-full text-xs">Python</span>
+                            <span class="px-3 py-1 bg-green-500/20 text-green-300 rounded-full text-xs">ML</span>
+                            <span class="px-3 py-1 bg-green-500/20 text-green-300 rounded-full text-xs">AI</span>
+                        </div>
+                        <button class="connect-btn w-full">
+                            <i class="fas fa-handshake mr-2"></i>Connect Now
+                        </button>
+                    </div>
+                </div>
+
+                <div class="mentor-card card-hover animate-fadeInUp animate-delay-300">
+                    <div class="text-center">
+                        <div class="w-24 h-24 bg-gradient-to-r from-purple-500 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-6">
+                            <img src="Mentor.png" alt="Saksham" class="w-20 h-20 rounded-full object-cover">
+                        </div>
+                        <h3 class="text-2xl font-bold mb-2 text-white">Saksham</h3>
+                        <p class="text-purple-400 font-semibold mb-3">Product Manager</p>
+                        <p class="text-gray-300 text-sm mb-6">
+                            Strategic product manager with experience in tech startups. 
+                            Guides students on business and product management careers.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-6">
+                            <span class="px-3 py-1 bg-purple-500/20 text-purple-300 rounded-full text-xs">Strategy</span>
+                            <span class="px-3 py-1 bg-purple-500/20 text-purple-300 rounded-full text-xs">Leadership</span>
+                            <span class="px-3 py-1 bg-purple-500/20 text-purple-300 rounded-full text-xs">Business</span>
+                        </div>
+                        <button class="connect-btn w-full">
+                            <i class="fas fa-handshake mr-2"></i>Connect Now
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Call to Action -->
+        <div class="text-center animate-fadeInUp">
+            <div class="glass-effect rounded-2xl p-8">
+                <h3 class="text-2xl font-bold mb-4 text-white">Ready to Connect with a Mentor?</h3>
+                <p class="text-gray-300 mb-6">
+                    Take our aptitude tests first to get personalized mentor recommendations based on your strengths and interests.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <a href="test.html" class="connect-btn inline-flex items-center justify-center">
+                        <i class="fas fa-clipboard-check mr-2"></i>Take Aptitude Tests
+                    </a>
+                    <a href="Contact.HTML" class="connect-btn inline-flex items-center justify-center">
+                        <i class="fas fa-envelope mr-2"></i>Contact Us
+                    </a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="w-full py-10 bg-gradient-to-b from-gray-900 to-blue-900 text-center">
+        <p class="text-white text-sm mb-4">
+            2025 © Navik - Designed & Crafted <span class="text-red-500">❤️</span> by Navik Team
+        </p>
+        <div class="flex justify-center space-x-6">
+            <a class="text-white hover:text-blue-400" href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a class="text-white hover:text-blue-400" href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+            <a class="text-white hover:text-blue-400" href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+            <a class="text-white hover:text-blue-400" href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+        </div>
+    </footer>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const logoBtn = document.getElementById('logoDropdownBtn');
+        const dropdownMenu = document.getElementById('logoDropdownMenu');
+        const logoutBtn = document.getElementById('logoutBtn');
+
+        if (logoBtn && dropdownMenu) {
+            logoBtn.addEventListener('click', function (e) {
+                e.stopPropagation();
+                dropdownMenu.classList.toggle('hidden');
+            });
+
+            document.addEventListener('click', function () {
+                dropdownMenu.classList.add('hidden');
+            });
+
+            dropdownMenu.addEventListener('click', function (e) {
+                e.stopPropagation();
+            });
+        }
+
+        if (logoutBtn) {
+            logoutBtn.addEventListener('click', function (e) {
+                e.preventDefault();
+                localStorage.clear();
+                window.location.href = "index.html";
+            });
+        }
+    });
+    </script>
+</body>
+</html>

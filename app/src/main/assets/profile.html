@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Navik - Professional Profile</title>
+    <link rel="icon" type="image/png" href="Logo_Navik.png">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+
+    <!-- External CSS -->
+    <link rel="stylesheet" href="styles.css"/>
+
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+        
+        .stat-card {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .progress-ring {
+            transform: rotate(-90deg);
+        }
+        
+        .skill-bar {
+            background: linear-gradient(90deg, #4f46e5, #7c3aed);
+            border-radius: 10px;
+            height: 8px;
+            transition: width 0.8s ease;
+        }
+        
+        .achievement-badge {
+            background: linear-gradient(135deg, #fbbf24, #f59e0b);
+            box-shadow: 0 4px 15px rgba(251, 191, 36, 0.3);
+        }
+        
+        .profile-image {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            padding: 4px;
+            border-radius: 50%;
+        }
+        
+        .nav-link {
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 50%;
+            background: linear-gradient(90deg, #4f46e5, #7c3aed);
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .nav-link.active::after {
+            width: 100%;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .animate-fadeInUp {
+            animation: fadeInUp 0.6s ease forwards;
+        }
+        
+        .animate-delay-100 { animation-delay: 0.1s; }
+        .animate-delay-200 { animation-delay: 0.2s; }
+        .animate-delay-300 { animation-delay: 0.3s; }
+        .animate-delay-400 { animation-delay: 0.4s; }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 min-h-screen text-white">
+
+    <!-- Header -->
+    <header class="w-full glass-effect border-b border-white/10 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center space-x-4">
+                    <img src="Logo_Navik.png" alt="Navik Logo" class="w-12 h-12 rounded-lg shadow-lg">
+                    <div>
+                        <h1 class="text-xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">NAVIK</h1>
+                        <p class="text-xs text-gray-400">Career Guidance Platform</p>
+                    </div>
+                </div>
+                
+                <nav class="hidden md:flex space-x-8">
+                    <a class="nav-link text-gray-300 hover:text-white transition-colors" href="dashboard.html">
+                        <i class="fas fa-home mr-2"></i>Home
+                    </a>
+                    <a class="nav-link text-gray-300 hover:text-white transition-colors" href="Career_Exploration.html">
+                        <i class="fas fa-compass mr-2"></i>Explore
+                    </a>
+                    <a class="nav-link text-gray-300 hover:text-white transition-colors" href="mentor_community.html">
+                        <i class="fas fa-users mr-2"></i>Mentors
+                    </a>
+                    <a class="nav-link text-gray-300 hover:text-white transition-colors" href="report.html">
+                        <i class="fas fa-chart-bar mr-2"></i>Reports
+                    </a>
+                    <a class="nav-link text-gray-300 hover:text-white transition-colors" href="test.html">
+                        <i class="fas fa-clipboard-check mr-2"></i>Tests
+                    </a>
+                </nav>
+
+                <div class="flex items-center space-x-4">
+                    <button class="gradient-bg text-white px-6 py-2 rounded-full hover:shadow-lg transition-all duration-300 flex items-center">
+                        <i class="fas fa-envelope mr-2"></i>Contact
+                    </button>
+                    
+                    <!-- Profile Dropdown -->
+                    <div class="relative">
+                        <button class="flex items-center space-x-2 text-gray-300 hover:text-white transition-colors" id="logoDropdownBtn">
+                            <div class="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center">
+                                <i class="fas fa-user text-sm"></i>
+                            </div>
+                            <i class="fas fa-chevron-down text-xs"></i>
+                        </button>
+                        <div id="logoDropdownMenu" class="hidden absolute right-0 mt-2 w-48 glass-effect rounded-lg shadow-lg py-2 z-30">
+                            <a href="profile.html" class="block px-4 py-2 text-white hover:bg-white/20 transition-colors">
+                                <i class="fas fa-user mr-2"></i>Profile
+                            </a>
+                            <a href="#" id="logoutBtn" class="block px-4 py-2 text-white hover:bg-white/20 transition-colors">
+                                <i class="fas fa-sign-out-alt mr-2"></i>Logout
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-grow max-w-7xl mx-auto px-6 py-8">
+        <!-- Profile Header -->
+        <div class="glass-effect rounded-2xl p-8 mb-8 animate-fadeInUp">
+            <div class="flex flex-col md:flex-row items-center md:items-start space-y-6 md:space-y-0 md:space-x-8">
+                <!-- Profile Image -->
+                <div class="profile-image animate-fadeInUp animate-delay-100">
+                    <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" 
+                         alt="Profile" 
+                         class="w-32 h-32 rounded-full object-cover shadow-2xl">
+                </div>
+                
+                <!-- Profile Info -->
+                <div class="flex-grow text-center md:text-left animate-fadeInUp animate-delay-200">
+                    <h1 class="text-4xl font-bold mb-2 bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent" id="profile-username">
+                        Welcome Back!
+                    </h1>
+                    <p class="text-xl text-gray-300 mb-4">Career Development Enthusiast</p>
+                    <div class="flex flex-wrap justify-center md:justify-start gap-4">
+                        <div class="flex items-center space-x-2 text-gray-300">
+                            <i class="fas fa-map-marker-alt text-blue-400"></i>
+                            <span>San Francisco, CA</span>
+                        </div>
+                        <div class="flex items-center space-x-2 text-gray-300">
+                            <i class="fas fa-calendar text-purple-400"></i>
+                            <span>Joined Jan 2024</span>
+                        </div>
+                        <div class="flex items-center space-x-2 text-gray-300">
+                            <i class="fas fa-graduation-cap text-green-400"></i>
+                            <span>Computer Science</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Action Buttons -->
+                <div class="flex flex-col space-y-3 animate-fadeInUp animate-delay-300">
+                    <button class="gradient-bg text-white px-6 py-3 rounded-full hover:shadow-lg transition-all duration-300 flex items-center">
+                        <i class="fas fa-edit mr-2"></i>Edit Profile
+                    </button>
+                    <button class="glass-effect text-white px-6 py-3 rounded-full hover:bg-white/20 transition-all duration-300 flex items-center">
+                        <i class="fas fa-share mr-2"></i>Share Profile
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Stats Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+            <!-- Overall Progress -->
+            <div class="stat-card rounded-xl p-6 card-hover animate-fadeInUp animate-delay-100">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="w-12 h-12 bg-gradient-to-r from-blue-500 to-blue-600 rounded-lg flex items-center justify-center">
+                        <i class="fas fa-chart-line text-white text-xl"></i>
+                    </div>
+                    <span class="text-2xl font-bold text-blue-400">85%</span>
+                </div>
+                <h3 class="text-lg font-semibold mb-2">Overall Progress</h3>
+                <div class="w-full bg-gray-700 rounded-full h-2">
+                    <div class="skill-bar h-2 rounded-full" style="width: 85%"></div>
+                </div>
+            </div>
+
+            <!-- Tests Completed -->
+            <div class="stat-card rounded-xl p-6 card-hover animate-fadeInUp animate-delay-200">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="w-12 h-12 bg-gradient-to-r from-green-500 to-green-600 rounded-lg flex items-center justify-center">
+                        <i class="fas fa-clipboard-check text-white text-xl"></i>
+                    </div>
+                    <span class="text-2xl font-bold text-green-400">12</span>
+                </div>
+                <h3 class="text-lg font-semibold mb-2">Tests Completed</h3>
+                <p class="text-gray-400 text-sm">5 more to reach goal</p>
+            </div>
+
+            <!-- Career Score -->
+            <div class="stat-card rounded-xl p-6 card-hover animate-fadeInUp animate-delay-300">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="w-12 h-12 bg-gradient-to-r from-purple-500 to-purple-600 rounded-lg flex items-center justify-center">
+                        <i class="fas fa-star text-white text-xl"></i>
+                    </div>
+                    <span class="text-2xl font-bold text-purple-400">4.8</span>
+                </div>
+                <h3 class="text-lg font-semibold mb-2">Career Score</h3>
+                <p class="text-gray-400 text-sm">Excellent performance</p>
+            </div>
+
+            <!-- Achievements -->
+            <div class="stat-card rounded-xl p-6 card-hover animate-fadeInUp animate-delay-400">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="w-12 h-12 bg-gradient-to-r from-yellow-500 to-yellow-600 rounded-lg flex items-center justify-center">
+                        <i class="fas fa-trophy text-white text-xl"></i>
+                    </div>
+                    <span class="text-2xl font-bold text-yellow-400">8</span>
+                </div>
+                <h3 class="text-lg font-semibold mb-2">Achievements</h3>
+                <p class="text-gray-400 text-sm">Keep it up!</p>
+            </div>
+        </div>
+
+        <!-- Content Grid -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <!-- Skills & Interests -->
+            <div class="lg:col-span-2">
+                <div class="glass-effect rounded-xl p-6 mb-6 animate-fadeInUp">
+                    <h2 class="text-2xl font-bold mb-6 flex items-center">
+                        <i class="fas fa-cogs mr-3 text-blue-400"></i>Skills & Interests
+                    </h2>
+                    
+                    <div class="space-y-4">
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="font-medium">Problem Solving</span>
+                                <span class="text-blue-400">92%</span>
+                            </div>
+                            <div class="w-full bg-gray-700 rounded-full h-2">
+                                <div class="skill-bar h-2 rounded-full" style="width: 92%"></div>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="font-medium">Communication</span>
+                                <span class="text-purple-400">88%</span>
+                            </div>
+                            <div class="w-full bg-gray-700 rounded-full h-2">
+                                <div class="skill-bar h-2 rounded-full" style="width: 88%"></div>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="font-medium">Leadership</span>
+                                <span class="text-green-400">85%</span>
+                            </div>
+                            <div class="w-full bg-gray-700 rounded-full h-2">
+                                <div class="skill-bar h-2 rounded-full" style="width: 85%"></div>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="font-medium">Technical Skills</span>
+                                <span class="text-yellow-400">78%</span>
+                            </div>
+                            <div class="w-full bg-gray-700 rounded-full h-2">
+                                <div class="skill-bar h-2 rounded-full" style="width: 78%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Activity -->
+                <div class="glass-effect rounded-xl p-6 animate-fadeInUp">
+                    <h2 class="text-2xl font-bold mb-6 flex items-center">
+                        <i class="fas fa-history mr-3 text-green-400"></i>Recent Activity
+                    </h2>
+                    
+                    <div class="space-y-4">
+                        <div class="flex items-center space-x-4 p-4 bg-white/5 rounded-lg">
+                            <div class="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center">
+                                <i class="fas fa-clipboard-check text-white"></i>
+                            </div>
+                            <div class="flex-grow">
+                                <p class="font-medium">Completed Personality Test</p>
+                                <p class="text-gray-400 text-sm">2 hours ago</p>
+                            </div>
+                            <span class="text-green-400 font-semibold">+15 pts</span>
+                        </div>
+                        
+                        <div class="flex items-center space-x-4 p-4 bg-white/5 rounded-lg">
+                            <div class="w-10 h-10 bg-purple-500 rounded-full flex items-center justify-center">
+                                <i class="fas fa-chart-bar text-white"></i>
+                            </div>
+                            <div class="flex-grow">
+                                <p class="font-medium">Viewed Career Report</p>
+                                <p class="text-gray-400 text-sm">1 day ago</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-center space-x-4 p-4 bg-white/5 rounded-lg">
+                            <div class="w-10 h-10 bg-yellow-500 rounded-full flex items-center justify-center">
+                                <i class="fas fa-trophy text-white"></i>
+                            </div>
+                            <div class="flex-grow">
+                                <p class="font-medium">Earned Achievement Badge</p>
+                                <p class="text-gray-400 text-sm">3 days ago</p>
+                            </div>
+                            <span class="text-yellow-400 font-semibold">New!</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sidebar -->
+            <div class="space-y-6">
+                <!-- Achievements -->
+                <div class="glass-effect rounded-xl p-6 animate-fadeInUp">
+                    <h2 class="text-xl font-bold mb-4 flex items-center">
+                        <i class="fas fa-medal mr-2 text-yellow-400"></i>Achievements
+                    </h2>
+                    
+                    <div class="space-y-3">
+                        <div class="achievement-badge rounded-lg p-3 flex items-center space-x-3">
+                            <i class="fas fa-star text-white text-lg"></i>
+                            <div>
+                                <p class="font-semibold text-white">First Test</p>
+                                <p class="text-xs text-yellow-100">Completed your first assessment</p>
+                            </div>
+                        </div>
+                        
+                        <div class="achievement-badge rounded-lg p-3 flex items-center space-x-3">
+                            <i class="fas fa-fire text-white text-lg"></i>
+                            <div>
+                                <p class="font-semibold text-white">Streak Master</p>
+                                <p class="text-xs text-yellow-100">7 days in a row</p>
+                            </div>
+                        </div>
+                        
+                        <div class="achievement-badge rounded-lg p-3 flex items-center space-x-3">
+                            <i class="fas fa-brain text-white text-lg"></i>
+                            <div>
+                                <p class="font-semibold text-white">Quick Learner</p>
+                                <p class="text-xs text-yellow-100">Improved 20% in a week</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Career Path -->
+                <div class="glass-effect rounded-xl p-6 animate-fadeInUp">
+                    <h2 class="text-xl font-bold mb-4 flex items-center">
+                        <i class="fas fa-route mr-2 text-purple-400"></i>Career Path
+                    </h2>
+                    
+                    <div class="text-center">
+                        <div class="w-20 h-20 bg-gradient-to-r from-purple-500 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-laptop-code text-white text-2xl"></i>
+                        </div>
+                        <h3 class="text-lg font-semibold mb-2">Software Engineer</h3>
+                        <p class="text-gray-400 text-sm mb-4">Based on your assessments and interests</p>
+                        <button class="w-full gradient-bg text-white py-2 rounded-lg hover:shadow-lg transition-all duration-300">
+                            Explore Path
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Quick Actions -->
+                <div class="glass-effect rounded-xl p-6 animate-fadeInUp">
+                    <h2 class="text-xl font-bold mb-4 flex items-center">
+                        <i class="fas fa-bolt mr-2 text-blue-400"></i>Quick Actions
+                    </h2>
+                    
+                    <div class="space-y-3">
+                        <button class="w-full bg-blue-600 hover:bg-blue-500 text-white py-3 rounded-lg transition-all duration-300 flex items-center justify-center">
+                            <i class="fas fa-play mr-2"></i>Take New Test
+                        </button>
+                        <button class="w-full bg-purple-600 hover:bg-purple-500 text-white py-3 rounded-lg transition-all duration-300 flex items-center justify-center">
+                            <i class="fas fa-chart-line mr-2"></i>View Reports
+                        </button>
+                        <button class="w-full bg-green-600 hover:bg-green-500 text-white py-3 rounded-lg transition-all duration-300 flex items-center justify-center">
+                            <i class="fas fa-users mr-2"></i>Find Mentors
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="glass-effect border-t border-white/10 mt-16">
+        <div class="max-w-7xl mx-auto px-6 py-12">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <!-- Brand -->
+                <div class="md:col-span-2">
+                    <div class="flex items-center space-x-3 mb-4">
+                        <img src="Logo_Navik.png" alt="Navik Logo" class="w-12 h-12 rounded-lg">
+                        <div>
+                            <h3 class="text-xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">NAVIK</h3>
+                            <p class="text-sm text-gray-400">Career Guidance Platform</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-300 mb-6 max-w-md">
+                        Empowering individuals to discover their true potential and navigate their career journey with confidence and clarity.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center hover:bg-blue-500 transition-colors">
+                            <i class="fab fa-linkedin text-white"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-purple-600 rounded-lg flex items-center justify-center hover:bg-purple-500 transition-colors">
+                            <i class="fab fa-twitter text-white"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-pink-600 rounded-lg flex items-center justify-center hover:bg-pink-500 transition-colors">
+                            <i class="fab fa-instagram text-white"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-red-600 rounded-lg flex items-center justify-center hover:bg-red-500 transition-colors">
+                            <i class="fab fa-youtube text-white"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Quick Links -->
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Quick Links</h4>
+                    <ul class="space-y-3">
+                        <li><a href="dashboard.html" class="text-gray-300 hover:text-white transition-colors">Home</a></li>
+                        <li><a href="Career_Exploration.html" class="text-gray-300 hover:text-white transition-colors">Career Exploration</a></li>
+                        <li><a href="mentor_community.html" class="text-gray-300 hover:text-white transition-colors">Mentor Community</a></li>
+                        <li><a href="test.html" class="text-gray-300 hover:text-white transition-colors">Assessments</a></li>
+                    </ul>
+                </div>
+
+                <!-- Support -->
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Support</h4>
+                    <ul class="space-y-3">
+                        <li><a href="Contact.HTML" class="text-gray-300 hover:text-white transition-colors">Contact Us</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Help Center</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Privacy Policy</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Terms of Service</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="border-t border-white/10 mt-12 pt-8 text-center">
+                <p class="text-gray-400">
+                    © 2025 Navik. All rights reserved. Made with <span class="text-red-500">❤️</span> for career success.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Update profile username
+            const nameHeading = document.getElementById('profile-username');
+            if (nameHeading) {
+                const username = localStorage.getItem('navik_username') || 'Career Explorer';
+                nameHeading.textContent = `Welcome Back, ${username}!`;
+            }
+
+            // Animate skill bars on scroll
+            const skillBars = document.querySelectorAll('.skill-bar');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const width = entry.target.style.width;
+                        entry.target.style.width = '0%';
+                        setTimeout(() => {
+                            entry.target.style.width = width;
+                        }, 200);
+                    }
+                });
+            });
+
+            skillBars.forEach(bar => observer.observe(bar));
+
+            // Add click handlers for quick actions
+            document.querySelectorAll('button').forEach(button => {
+                button.addEventListener('click', function(e) {
+                    const text = this.textContent.trim();
+                    
+                    if (text.includes('Take New Test')) {
+                        window.location.href = 'test.html';
+                    } else if (text.includes('View Reports')) {
+                        window.location.href = 'report.html';
+                    } else if (text.includes('Find Mentors')) {
+                        window.location.href = 'mentor_community.html';
+                    } else if (text.includes('Explore Path')) {
+                        window.location.href = 'Career_Exploration.html';
+                    } else if (text.includes('Edit Profile')) {
+                        // Show edit modal or redirect to edit page
+                        alert('Edit profile functionality coming soon!');
+                    } else if (text.includes('Share Profile')) {
+                        // Share functionality
+                        if (navigator.share) {
+                            navigator.share({
+                                title: 'My Navik Profile',
+                                text: 'Check out my career progress on Navik!',
+                                url: window.location.href
+                            });
+                        } else {
+                            // Fallback for browsers that don't support Web Share API
+                            navigator.clipboard.writeText(window.location.href);
+                            alert('Profile link copied to clipboard!');
+                        }
+                    }
+                });
+            });
+
+            // Add hover effects to cards
+            document.querySelectorAll('.card-hover').forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-5px)';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0)';
+                });
+            });
+
+            // Simulate real-time updates
+            setInterval(() => {
+                const progressElement = document.querySelector('.stat-card .text-blue-400');
+                if (progressElement) {
+                    const currentProgress = parseInt(progressElement.textContent);
+                    if (currentProgress < 100) {
+                        const newProgress = Math.min(currentProgress + Math.random() * 2, 100);
+                        progressElement.textContent = Math.round(newProgress) + '%';
+                        
+                        // Update progress bar
+                        const progressBar = document.querySelector('.skill-bar');
+                        if (progressBar) {
+                            progressBar.style.width = Math.round(newProgress) + '%';
+                        }
+                    }
+                }
+            }, 10000); // Update every 10 seconds
+        });
+    </script>
+</body>
+</html>
+

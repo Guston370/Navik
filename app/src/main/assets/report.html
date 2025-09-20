@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comprehensive Test Report - Navik</title>
+    <link rel="icon" type="image/png" href="Logo_Navik.png">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+    
+    <!-- External CSS -->
+    <link rel="stylesheet" href="modern-theme.css"/>
+    <style>
+        body { 
+            font-family: 'Inter', sans-serif; 
+            display: block !important;
+            justify-content: unset !important;
+            align-items: unset !important;
+            background: linear-gradient(to bottom right, #0f172a, #581c87, #0f172a) !important;
+        }
+        
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+        
+        .nav-link {
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 50%;
+            background: linear-gradient(90deg, #4f46e5, #7c3aed);
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .nav-link.active::after {
+            width: 100%;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .animate-fadeInUp {
+            animation: fadeInUp 0.6s ease forwards;
+        }
+        
+        .animate-delay-100 { animation-delay: 0.1s; }
+        .animate-delay-200 { animation-delay: 0.2s; }
+        .animate-delay-300 { animation-delay: 0.3s; }
+        .animate-delay-400 { animation-delay: 0.4s; }
+        
+        .score-bar {
+            height: 12px;
+            background: linear-gradient(90deg, #4f46e5, #7c3aed);
+            border-radius: 10px;
+            margin: 10px 0;
+            transition: width 0.8s ease;
+        }
+        
+        .report-card {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 24px;
+            transition: all 0.3s ease;
+        }
+        
+        .report-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+        
+        .strength { color: #10b981; }
+        .weakness { color: #ef4444; }
+        
+        .save-button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            padding: 12px 32px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+        
+        .save-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+        }
+        
+        .progress-ring {
+            transform: rotate(-90deg);
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        /* Override any conflicting styles from external CSS */
+        * {
+            box-sizing: border-box;
+        }
+        
+        header {
+            position: sticky !important;
+            top: 0 !important;
+            z-index: 50 !important;
+            width: 100% !important;
+            display: block !important;
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 min-h-screen text-white">
+    <!-- Header -->
+    <header class="w-full glass-effect border-b border-white/10 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center space-x-4">
+                    <img src="Logo_Navik.png" alt="Navik Logo" class="w-12 h-12 rounded-lg shadow-lg">
+                    <div>
+                        <h1 class="text-xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">NAVIK</h1>
+                        <p class="text-xs text-gray-400">Career Guidance Platform</p>
+                    </div>
+                </div>
+                
+                <nav class="hidden md:flex space-x-8">
+                    <a class="nav-link text-gray-300 hover:text-white transition-colors" href="dashboard.html">
+                        <i class="fas fa-home mr-2"></i>Home
+                    </a>
+                    <a class="nav-link text-gray-300 hover:text-white transition-colors" href="Career_Exploration.html">
+                        <i class="fas fa-compass mr-2"></i>Explore
+                    </a>
+                    <a class="nav-link text-gray-300 hover:text-white transition-colors" href="mentor_community.html">
+                        <i class="fas fa-users mr-2"></i>Mentors
+                    </a>
+                    <a class="nav-link active text-white font-semibold" href="report.html">
+                        <i class="fas fa-chart-bar mr-2"></i>Reports
+                    </a>
+                    <a class="nav-link text-gray-300 hover:text-white transition-colors" href="test.html">
+                        <i class="fas fa-clipboard-check mr-2"></i>Tests
+                    </a>
+                </nav>
+
+                <div class="flex items-center space-x-4">
+                    <button onclick="window.location.href='Contact.HTML'" class="gradient-bg text-white px-6 py-2 rounded-full hover:shadow-lg transition-all duration-300 flex items-center">
+                        <i class="fas fa-envelope mr-2"></i>Contact
+                    </button>
+                    
+                    <!-- Profile Dropdown -->
+                    <div class="relative">
+                        <button class="flex items-center space-x-2 text-gray-300 hover:text-white transition-colors" id="logoDropdownBtn">
+                            <div class="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center">
+                                <i class="fas fa-user text-sm"></i>
+                            </div>
+                            <i class="fas fa-chevron-down text-xs"></i>
+                        </button>
+                        <div id="logoDropdownMenu" class="hidden absolute right-0 mt-2 w-48 glass-effect rounded-lg shadow-lg py-2 z-30">
+                            <a href="profile.html" class="block px-4 py-2 text-white hover:bg-white/20 transition-colors">
+                                <i class="fas fa-user mr-2"></i>Profile
+                            </a>
+                            <a href="#" id="logoutBtn" class="block px-4 py-2 text-white hover:bg-white/20 transition-colors">
+                                <i class="fas fa-sign-out-alt mr-2"></i>Logout
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-6 py-8">
+        <!-- Hero Section -->
+        <div class="text-center mb-12 animate-fadeInUp">
+            <h1 class="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+                Test Report
+            </h1>
+            <p class="text-xl text-gray-300 mb-8 max-w-3xl mx-auto">
+                Comprehensive analysis of your assessment results with personalized insights and recommendations.
+            </p>
+        </div>
+
+        <!-- Overall Score Card -->
+        <div class="glass-effect rounded-2xl p-8 mb-8 animate-fadeInUp animate-delay-100">
+            <div class="text-center">
+                <h2 class="text-3xl font-bold mb-4 text-white">Overall Performance</h2>
+                <div class="stat-number mb-4" id="overall-score">0%</div>
+                <div class="w-full bg-gray-700 rounded-full h-4 mb-6">
+                    <div class="score-bar h-4 rounded-full" id="overall-progress" style="width: 0%;"></div>
+                </div>
+                <p class="text-gray-300 text-lg">Based on your performance across all assessment areas</p>
+            </div>
+        </div>
+
+        <!-- Detailed Results Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+            <div class="report-card animate-fadeInUp animate-delay-100" id="numerical-card">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="w-12 h-12 bg-gradient-to-r from-red-500 to-red-600 rounded-xl flex items-center justify-center">
+                        <i class="fas fa-calculator text-white text-xl"></i>
+                    </div>
+                    <span class="text-2xl font-bold text-red-400" id="numerical-score">0%</span>
+                </div>
+                <h3 class="text-xl font-semibold mb-2 text-white">Numerical Ability</h3>
+                <div class="w-full bg-gray-700 rounded-full h-2 mb-3">
+                    <div class="score-bar h-2 rounded-full" id="numerical-progress" style="width: 0%; background: #ef4444;"></div>
+                </div>
+                <p class="text-gray-400 text-sm" id="numerical-feedback">Loading feedback...</p>
+            </div>
+
+            <div class="report-card animate-fadeInUp animate-delay-200" id="personality-card">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="w-12 h-12 bg-gradient-to-r from-blue-500 to-blue-600 rounded-xl flex items-center justify-center">
+                        <i class="fas fa-user text-white text-xl"></i>
+                    </div>
+                    <span class="text-2xl font-bold text-blue-400" id="personality-score">0%</span>
+                </div>
+                <h3 class="text-xl font-semibold mb-2 text-white">Personality</h3>
+                <div class="w-full bg-gray-700 rounded-full h-2 mb-3">
+                    <div class="score-bar h-2 rounded-full" id="personality-progress" style="width: 0%; background: #3b82f6;"></div>
+                </div>
+                <p class="text-gray-400 text-sm" id="personality-feedback">Loading feedback...</p>
+            </div>
+
+            <div class="report-card animate-fadeInUp animate-delay-300" id="abstract-card">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="w-12 h-12 bg-gradient-to-r from-orange-500 to-orange-600 rounded-xl flex items-center justify-center">
+                        <i class="fas fa-brain text-white text-xl"></i>
+                    </div>
+                    <span class="text-2xl font-bold text-orange-400" id="abstract-score">0%</span>
+                </div>
+                <h3 class="text-xl font-semibold mb-2 text-white">Abstract Reasoning</h3>
+                <div class="w-full bg-gray-700 rounded-full h-2 mb-3">
+                    <div class="score-bar h-2 rounded-full" id="abstract-progress" style="width: 0%; background: #f59e42;"></div>
+                </div>
+                <p class="text-gray-400 text-sm" id="abstract-feedback">Loading feedback...</p>
+            </div>
+
+            <div class="report-card animate-fadeInUp animate-delay-400" id="perceptual-card">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="w-12 h-12 bg-gradient-to-r from-green-500 to-green-600 rounded-xl flex items-center justify-center">
+                        <i class="fas fa-eye text-white text-xl"></i>
+                    </div>
+                    <span class="text-2xl font-bold text-green-400" id="perceptual-score">0%</span>
+                </div>
+                <h3 class="text-xl font-semibold mb-2 text-white">Perceptual Reasoning</h3>
+                <div class="w-full bg-gray-700 rounded-full h-2 mb-3">
+                    <div class="score-bar h-2 rounded-full" id="perceptual-progress" style="width: 0%; background: #10b981;"></div>
+                </div>
+                <p class="text-gray-400 text-sm" id="perceptual-feedback">Loading feedback...</p>
+            </div>
+
+            <div class="report-card animate-fadeInUp animate-delay-100" id="verbal-card">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="w-12 h-12 bg-gradient-to-r from-purple-500 to-purple-600 rounded-xl flex items-center justify-center">
+                        <i class="fas fa-comments text-white text-xl"></i>
+                    </div>
+                    <span class="text-2xl font-bold text-purple-400" id="verbal-score">0%</span>
+                </div>
+                <h3 class="text-xl font-semibold mb-2 text-white">Verbal Aptitude</h3>
+                <div class="w-full bg-gray-700 rounded-full h-2 mb-3">
+                    <div class="score-bar h-2 rounded-full" id="verbal-progress" style="width: 0%; background: #a855f7;"></div>
+                </div>
+                <p class="text-gray-400 text-sm" id="verbal-feedback">Loading feedback...</p>
+            </div>
+
+            <div class="report-card animate-fadeInUp animate-delay-200" id="spatial-card">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="w-12 h-12 bg-gradient-to-r from-red-500 to-red-600 rounded-xl flex items-center justify-center">
+                        <i class="fas fa-cube text-white text-xl"></i>
+                    </div>
+                    <span class="text-2xl font-bold text-red-400" id="spatial-score">0%</span>
+                </div>
+                <h3 class="text-xl font-semibold mb-2 text-white">Spatial Aptitude</h3>
+                <div class="w-full bg-gray-700 rounded-full h-2 mb-3">
+                    <div class="score-bar h-2 rounded-full" id="spatial-progress" style="width: 0%; background: #ef4444;"></div>
+                </div>
+                <p class="text-gray-400 text-sm" id="spatial-feedback">Loading feedback...</p>
+            </div>
+        </div>
+
+        <!-- Strengths and Weaknesses -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+            <!-- Strengths -->
+            <div class="glass-effect rounded-2xl p-8 animate-fadeInUp animate-delay-300">
+                <div class="flex items-center mb-6">
+                    <div class="w-12 h-12 bg-gradient-to-r from-green-500 to-green-600 rounded-xl flex items-center justify-center mr-4">
+                        <i class="fas fa-trophy text-white text-xl"></i>
+                    </div>
+                    <h2 class="text-2xl font-bold text-green-400">Your Strengths</h2>
+                </div>
+                <div id="strengths-list" class="space-y-4">
+                    <!-- Dynamic content will be inserted here -->
+                </div>
+            </div>
+
+            <!-- Areas for Improvement -->
+            <div class="glass-effect rounded-2xl p-8 animate-fadeInUp animate-delay-400">
+                <div class="flex items-center mb-6">
+                    <div class="w-12 h-12 bg-gradient-to-r from-red-500 to-red-600 rounded-xl flex items-center justify-center mr-4">
+                        <i class="fas fa-target text-white text-xl"></i>
+                    </div>
+                    <h2 class="text-2xl font-bold text-red-400">Areas to Improve</h2>
+                </div>
+                <div id="weaknesses-list" class="space-y-4">
+                    <!-- Dynamic content will be inserted here -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="text-center animate-fadeInUp">
+            <button id="save-results-btn" class="save-button mr-4">
+                <i class="fas fa-save mr-2"></i>Save Results
+            </button>
+            <button onclick="window.location.href='test.html'" class="glass-effect text-white px-8 py-3 rounded-xl hover:bg-white/20 transition-all duration-300">
+                <i class="fas fa-redo mr-2"></i>Retake Tests
+            </button>
+        </div>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Profile dropdown functionality
+            const logoBtn = document.getElementById('logoDropdownBtn');
+            const dropdownMenu = document.getElementById('logoDropdownMenu');
+            const logoutBtn = document.getElementById('logoutBtn');
+
+            if (logoBtn && dropdownMenu) {
+                logoBtn.addEventListener('click', function (e) {
+                    e.stopPropagation();
+                    dropdownMenu.classList.toggle('hidden');
+                });
+
+                document.addEventListener('click', function () {
+                    dropdownMenu.classList.add('hidden');
+                });
+
+                dropdownMenu.addEventListener('click', function (e) {
+                    e.stopPropagation();
+                });
+            }
+
+            if (logoutBtn) {
+                logoutBtn.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    localStorage.removeItem('navik_username');
+                    window.location.href = "index.html";
+                });
+            }
+
+            // Test data configuration
+            const tests = [
+                { name: "Personality", key: "personality", color: "#3b82f6", icon: "fa-user" },
+                { name: "Abstract Reasoning", key: "abstract", color: "#f59e42", icon: "fa-brain" },
+                { name: "Perceptual Reasoning", key: "perceptual", color: "#10b981", icon: "fa-eye" },
+                { name: "Verbal Aptitude", key: "verbal", color: "#a855f7", icon: "fa-comments" },
+                { name: "Spatial Aptitude", key: "spatial", color: "#ef4444", icon: "fa-cube" }
+            ];
+
+            // Load and process test results
+            const results = tests.map(test => {
+                let feedback = [];
+                try {
+                    feedback = JSON.parse(localStorage.getItem(`${test.key}Feedback`) || "[]");
+                } catch (e) {
+                    feedback = [];
+                }
+                return {
+                    ...test,
+                    score: parseInt(localStorage.getItem(`${test.key}Score`) || 0),
+                    feedback: feedback,
+                    percentage: Math.round((parseInt(localStorage.getItem(`${test.key}Score`) || 0) / 15 * 100))
+                };
+            });
+
+            const overallPercentage = results.length
+                ? Math.round(results.reduce((sum, test) => sum + test.percentage, 0) / results.length)
+                : 0;
+
+            // Update overall score
+            document.getElementById('overall-score').textContent = overallPercentage + '%';
+            setTimeout(() => {
+                document.getElementById('overall-progress').style.width = overallPercentage + '%';
+            }, 500);
+
+            // Update individual test cards
+            results.forEach((test, index) => {
+                const scoreElement = document.getElementById(`${test.key}-score`);
+                const progressElement = document.getElementById(`${test.key}-progress`);
+                const feedbackElement = document.getElementById(`${test.key}-feedback`);
+
+                if (scoreElement) {
+                    scoreElement.textContent = test.percentage + '%';
+                }
+
+                if (progressElement) {
+                    setTimeout(() => {
+                        progressElement.style.width = test.percentage + '%';
+                    }, 800 + (index * 200));
+                }
+
+                if (feedbackElement && test.feedback.length > 0) {
+                    feedbackElement.textContent = test.feedback[0] || 'No specific feedback available.';
+                } else if (feedbackElement) {
+                    feedbackElement.textContent = 'Complete the test to see personalized feedback.';
+                }
+            });
+
+            // Sort results for strengths and weaknesses
+            const sortedResults = [...results].sort((a, b) => b.percentage - a.percentage);
+            const strengths = sortedResults.slice(0, 2);
+            const weaknesses = sortedResults.slice(-2);
+
+            // Update strengths section
+            const strengthsList = document.getElementById('strengths-list');
+            if (strengthsList) {
+                strengthsList.innerHTML = strengths.map(test => `
+                    <div class="flex items-center p-4 bg-green-500/10 rounded-lg border border-green-500/20">
+                        <div class="w-8 h-8 bg-green-500 rounded-lg flex items-center justify-center mr-3">
+                            <i class="fas ${test.icon} text-white text-sm"></i>
+                        </div>
+                        <div class="flex-grow">
+                            <h4 class="font-semibold text-green-400">${test.name}</h4>
+                            <p class="text-sm text-gray-300">${test.percentage}% - ${test.feedback[0] || 'Strong performance in this area.'}</p>
+                        </div>
+                    </div>
+                `).join('');
+            }
+
+            // Update weaknesses section
+            const weaknessesList = document.getElementById('weaknesses-list');
+            if (weaknessesList) {
+                weaknessesList.innerHTML = weaknesses.map(test => `
+                    <div class="flex items-center p-4 bg-red-500/10 rounded-lg border border-red-500/20">
+                        <div class="w-8 h-8 bg-red-500 rounded-lg flex items-center justify-center mr-3">
+                            <i class="fas ${test.icon} text-white text-sm"></i>
+                        </div>
+                        <div class="flex-grow">
+                            <h4 class="font-semibold text-red-400">${test.name}</h4>
+                            <p class="text-sm text-gray-300">${test.percentage}% - ${test.feedback[0] || 'Consider focusing on improvement in this area.'}</p>
+                        </div>
+                    </div>
+                `).join('');
+            }
+
+            // Save results functionality
+            document.getElementById('save-results-btn').addEventListener('click', function() {
+                const username = localStorage.getItem('navik_username') || 'User';
+                saveTestData({
+                    username: username,
+                    personality_score: results[0].score,
+                    abstract_score: results[1].score,
+                    perceptual_score: results[2].score,
+                    verbal_score: results[3].score,
+                    spatial_score: results[4].score,
+                    overall_percentage: overallPercentage
+                });
+            });
+
+            function saveTestData(data) {
+                // Store test data in localStorage for demo purposes
+                localStorage.setItem('saved_test_data', JSON.stringify(data));
+                localStorage.setItem('test_data_saved', 'true');
+                
+                showPopup("Results saved successfully!", "#10b981");
+                console.log("Test data saved locally:", data);
+            }
+
+            function showPopup(message, color = "#2563eb") {
+                let popup = document.getElementById('popup');
+                if (!popup) {
+                    popup = document.createElement('div');
+                    popup.id = 'popup';
+                    popup.style.position = 'fixed';
+                    popup.style.top = '24px';
+                    popup.style.right = '24px';
+                    popup.style.background = color;
+                    popup.style.color = '#fff';
+                    popup.style.padding = '16px 24px';
+                    popup.style.borderRadius = '12px';
+                    popup.style.boxShadow = '0 10px 25px rgba(0,0,0,0.3)';
+                    popup.style.zIndex = '9999';
+                    popup.style.fontSize = '15px';
+                    popup.style.fontWeight = '600';
+                    popup.style.backdropFilter = 'blur(10px)';
+                    popup.style.border = '1px solid rgba(255,255,255,0.2)';
+                    document.body.appendChild(popup);
+                }
+                popup.textContent = message;
+                popup.style.display = 'block';
+                popup.style.opacity = '0';
+                popup.style.transform = 'translateY(-20px)';
+                
+                // Animate in
+                setTimeout(() => {
+                    popup.style.transition = 'all 0.3s ease';
+                    popup.style.opacity = '1';
+                    popup.style.transform = 'translateY(0)';
+                }, 10);
+                
+                // Animate out
+                setTimeout(() => {
+                    popup.style.opacity = '0';
+                    popup.style.transform = 'translateY(-20px)';
+                    setTimeout(() => {
+                        popup.style.display = 'none';
+                    }, 300);
+                }, 3000);
+            }
+
+            // Animate elements on scroll
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            });
+
+            document.querySelectorAll('.animate-fadeInUp').forEach(el => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(30px)';
+                observer.observe(el);
+            });
+        });
+    </script>
+</body>
+</html>
+
